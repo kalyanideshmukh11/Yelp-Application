@@ -1,0 +1,49 @@
+import React from 'react';
+import { Card, Image, Button, Row, Col, Form } from 'react-bootstrap';
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { faCamera } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+export const RestaurantImages = (props) => {
+    let content;
+    if(!props.imagemode){
+        content = (
+            <div>
+                <Row className="justify-content-center">
+                    <Card.Title>{props.restaurant_image ? (props.restaurant_image.first_name + ' ' + props.restaurant_image.last_name) : ''}</Card.Title>
+                </Row>
+
+            </div>
+        );
+    } else {
+        content = (
+            <div>
+                <Form method="post" onSubmit={props.submitHandler} className="pl-5 pt-2">
+                    <div>
+                        <Form.Control type="file" id="file" name="file" multiple />
+                    </div>
+                    <div>
+                    <FontAwesomeIcon icon={faCamera} style={{marginBottom:'5px'}}/><Button type="submit" variant="link" >
+                        <p className="text-muted font-weight-bold">Add Photo</p>
+                    </Button>
+                    <Button type="button" className="ml-2" variant="danger" onClick={() => props.changeImageMode(false)}>Cancel</Button>
+                    </div>
+                </Form>
+            </div>            
+        )
+    }
+        
+    return (
+        <Card bg="light">
+            <Card.Body>
+            <Card.Title>Photo Gallery</Card.Title>
+            <Row><Button variant="link" style={{paddingLeft: '300px'}} onClick={() => props.changeImageMode(true)}><FontAwesomeIcon icon={faEdit} /></Button></Row>
+            <Row className="justify-content-center">
+                <Image src={props.profilePic} width="100" height="100" roundedCircle/>
+            </Row>
+            {content}
+            </Card.Body>
+        </Card>
+    );
+
+}

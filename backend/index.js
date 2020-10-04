@@ -4,17 +4,12 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 require('dotenv').config();
-const constants = require('../backend/src/db/constants');
-// 'http://localhost:3000'
-//app.use(cors({ origin: 'http://13.52.163.10:3000', credentials: true }));
+
 app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 
 app.use(express.static('uploads'));
 
 const loginHandler = require('./src/routes/customer/customerLogin');
-// const studentProfileHandler = require('./src/routes/student/profile');
-// const companyHandler = require('./src/routes/company/entryLogin');
-// const jobHandler = require('./src/routes/student/job');
 const eventHandler = require('./src/routes/event/eventadmin');
 const customerHandler = require('./src/routes/customer/customerLogin');
 const customerProfileHandler = require('./src/routes/customer/customerProfile');

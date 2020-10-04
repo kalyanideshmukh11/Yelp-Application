@@ -1,5 +1,5 @@
 {
-  "name": "handshake",
+  "name": "yelpapp",
   "version": "1.0.0",
   "description": "",
   "main": ".eslintrc.js",
@@ -21,13 +21,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/varshajairam/handshake.git"
+    "url": ""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/varshajairam/handshake/issues"
-  },
-  "homepage": "https://github.com/varshajairam/handshake#readme"
+  "bugs": "",
+  "homepage": ""
 }

@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
 // import Navigation from './components/Navbar/Navbar';
-// import Login from './components/Login/Login';
-// import StudentSignup from './components/Signup/StudentSignup';
-//import Profile from './containers/Profile/profile';
-//import Profile from './containers/Profile/CustomerProfile';
 import Dashboard from './containers/Dashboard/dashboard';
 import Signup from './components/Signup/Signup';
 import CustomerSignup from './components/Signup/CustomerSignup';
@@ -15,7 +11,6 @@ import Logout from './components/Logout/logout';
 import { connect } from 'react-redux';
 import Profile from './containers/Profile/CustomerProfile';
 import RestaurantDashboard from './containers/RestaurantDashboard/RestaurantDashboard';
-//import order from './containers/RestaurantEvent/RestaurantEvent';
 import RestaurantEvent from './containers/RestaurantEvent/RestaurantEvent';
 import RestaurantOrder from './containers/RestaurantOrder/RestaurantOder';
 

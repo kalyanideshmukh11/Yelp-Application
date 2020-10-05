@@ -13,7 +13,7 @@ import Profile from './containers/Profile/CustomerProfile';
 import RestaurantDashboard from './containers/RestaurantDashboard/RestaurantDashboard';
 import RestaurantEvent from './containers/RestaurantEvent/RestaurantEvent';
 import RestaurantOrder from './containers/RestaurantOrder/RestaurantOder';
-
+import Event from './containers/Event/event';
 class Main extends Component {
 
     render() {
@@ -36,6 +36,7 @@ class Main extends Component {
                     <Route path="/restaurantorder" component={RestaurantOrder} />
                     <Route path="/restaurantevent" component={RestaurantEvent} />
                     <Route path="/dashboard" component={Dashboard} />
+                    <Route path="/event" component={Event} />
                     <Route path="/logout" component={Logout} />
                     <Redirect to='/' />
                 </Switch>

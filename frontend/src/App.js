@@ -15,6 +15,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { faEdit, faUser } from '@fortawesome/free-solid-svg-icons';
 import Navigation from '../src/components/Navbar/Navbar';
+import eventseachReducer from '../src/containers/Event/store/reducer';
 
 library.add(fab, faEdit, faUser);
 
@@ -26,8 +27,7 @@ const rootReducer = combineReducers({
   restaurant: restuarantReducer,
   event: eventReducer,
   restSearch: seachReducer,
-  
-
+  eventSearch: eventseachReducer,
 })
 
 const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());

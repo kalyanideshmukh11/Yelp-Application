@@ -58,27 +58,7 @@ class Dashboard extends Component {
         this.selectedRestaurant = restaurant;
     }
 
-    saveResume = (event, jobId) => {        
-        event.preventDefault();
-        const formData = new FormData();
-        const file = event.target.form.elements[0].files[0];
-        formData.append('resume', file);
-        formData.append('id', jobId);
-        axios.post(PATH + "/jobs/application", formData, {
-            headers: {
-                'content-type':'multipart/form-data'
-            }
-        })
-        .then(res => {
-            if(res.status === 200){
-                this.jobIdApplied = jobId;
-                this.props.saveResume(PATH + "/" + file.name);
-            }
-        })
-        .catch(err=>{
-            //this.props.authFail(err.response.data.msg);
-        })        
-    }
+    
 
     applyToJob = () => {
         this.props.applyToJob(true);
@@ -113,14 +93,6 @@ const mapDispatchToProps = (dispatch) => {
         saveRestaurants: (data) => dispatch(saveRestaurants(data)),
         returnRestaurants: (data) => dispatch(returnRestaurants(data)),
         controlModal: (data) => dispatch(controlModal(data)),
-        saveResume: (data) => dispatch(saveResume(data)),
-        applyToJob: (data) => dispatch(applyToJob(data)),
-        // saveSkillset: (data) => dispatch(saveSkillset(data)),
-        // changeMode: (data) => dispatch(changeMode(data)),
-        // enableSave: (data) => dispatch(enableSave(data)),
-        // saveProfilePic: (data) => dispatch(saveProfilePic(data)),
-        // changeEdMode: (data) => dispatch(changeEdMode(data)),
-        // changeExpMode: (data) => dispatch(changeExpMode(data)),
     }
 }
 

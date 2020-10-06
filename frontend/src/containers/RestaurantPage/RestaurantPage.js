@@ -1,30 +1,29 @@
-//rest details
-//restaurant images
-//menu details
-//rest reviews
-
 import React, { Component, useReducer } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { PATH } from '../../config';
 import { RestaurantDetails } from '../../components/restaurant-details/viewonly';
 import{GetMenuDetails} from '../../components/menu-details/getmenudetails';
 import { RestaurantImages } from '../../components/restaurant-images/restaurantimages';
+import{AddReview} from '../../components/review-details/addreview';
+import{GetReview} from '../../components/review-details/getreview';
 
 import { saveRestaurantDetails, changeMode, enableSave, changeImageMode, saveRestaurantImages, saveMenuDetails,
-changeMenuMode} from './store/action';
+changeMenuMode,changeReviewMode,saveReviewDetails} from './store/action';
 
 class RestaurantPage extends Component {
     constructor(){
         super();
         this.updateRestaurantDetails= this.updateRestaurantDetails.bind(this);
         this.updateMenuDetails= this.updateMenuDetails.bind(this);
+        this.updateReviewDetails= this.updateReviewDetails.bind(this);
     }
     componentDidMount(){
         this.getRestaurantDetails();
         this.getRestaurantImages();
         this.getMenuDetails();
+        this.getReviewDetails();
     }
 getRestaurantDetails = () => {
     axios.defaults.headers.common['x-auth-token'] = localStorage.getItem('token');
@@ -189,18 +188,78 @@ saveMenuDetails = (event) => {
 changeMenuMode = (mode) => {
     this.props.changeMenuMode(mode);
     }
-
 //=============================================
+changeReviewMode = (mode) => {
+    this.props.changeReviewMode(mode);
+    }
+getReviewDetails = () => {
+    console.log("get of menu")
+    axios.defaults.headers.common['x-auth-token'] = localStorage.getItem('token');
+    axios.get(PATH  + "/review/review")
+    .then(res => {
+        if(res.status === 200){  
+            console.log("got the review")
+            console.log(res.data)
+                this.props.saveReviewDetails(res.data);
+                console.log(res.data)  
+        }
+    })
+    .catch(err=>{
+        //this.props.setError(err.response.data);
+    })
+}
+
+updateReviewDetails = (value) => {
+    let newDetails = {};
+    Object.assign(newDetails, this.props.menuDetails);
+    newDetails.push(value);
+    this.props.saveReviewDetails(newDetails);
+}
+
+saveReviewDetails = (event) => {
+    event.preventDefault();
+    console.log("res data",this.props.restaurantDetails)
+    const data = {
+        "rest_id": this.props.restaurantDetails.id,
+        "comment": event.target.elements[0].value,            
+        "rating": event.target.elements[1].value,  
+        "date": new Date(),  
+    }
+    //Object.keys(data).forEach((key) => (data[key] == null) && delete data[key]);
+    axios.post(PATH + "/review/review", data)
+    .then(res => {
+        if(res.status === 200){
+            localStorage.setItem('id', res.data.id);           
+        }
+        //this.changeMode(false)
+        this.getReviewDetails(res.data);
+        this.changeReviewMode(false)
+    })
+    .catch(err=>{
+        //this.props.authFail(err.response.data.msg);
+    })
+}
+ handleClick(e) {
+    e.preventDefault();
+    console.log('The link was clicked.');
+  }
+//==============================================
     render(){
         // if(this.props.basicDetails && this.props.education && this.props.education.length && this.props.experience && this.props.experience.length){
             return (
                 <Container className="mt-5 mb-5">                                           
                     <Row>
+                    <Col sm={4} md={4} lg={4}>
+                    <RestaurantImages restaurantImages={this.props.restaurantImages} submitHandler={this.addRestaurantImage} changeImageMode = {this.changeImageMode} imagemode = {this.props.imagemode}></RestaurantImages><br/>
+                    <Button href="#" onClick={this.UNSAFE_componentWillMounthandleClick}> Order Now</Button><br/>
+                    <br/>
+                    <AddReview reviewDetails={this.props.reviewDetails} submitHandler={this.saveReviewDetails}reviewmode = {this.props.reviewmode} changeReviewMode = {this.changeReviewMode}> </AddReview><br/>
+                    <GetReview reviewDetails={this.props.reviewDetails} reviewmode = {this.props.reviewmode}></GetReview><br/>
+                    </Col>
                         <Col sm={8} md={8} lg={8}>
                         <RestaurantDetails restaurantDetails={this.props.restaurantDetails} submitHandler={this.saveRestaurantDetails} modeHandler = {this.changeMode} mode = {this.props.mode}></RestaurantDetails><br/>
-                         <GetMenuDetails menuDetails={this.props.menuDetails} menumode = {this.props.menumode}></GetMenuDetails><br/>
-                        <RestaurantImages restaurantImages={this.props.restaurantImages} submitHandler={this.addRestaurantImage} changeImageMode = {this.changeImageMode} imagemode = {this.props.imagemode}></RestaurantImages><br/>
-                        </Col>
+                        <GetMenuDetails menuDetails={this.props.menuDetails} menumode = {this.props.menumode}></GetMenuDetails><br/>
+                         </Col>
                     </Row>
                 </Container>            
             )     
@@ -209,13 +268,15 @@ changeMenuMode = (mode) => {
 
 const mapStateToProps = (state) => {
     return {
-        restaurantDetails: state.restaurant.restaurantDetails,
-        restaurant_image: state.restaurant.restaurant_image,
-        menuDetails: state.restaurant.menuDetails,
-        mode: state.restaurant.mode,
-        save: state.restaurant.save,
-        imagemode: state.restaurant.imagemode,
-        menumode: state.restaurant.menumode,
+        restaurantDetails: state.restPage.restaurantDetails,
+        restaurant_image: state.restPage.restaurant_image,
+        menuDetails: state.restPage.menuDetails,
+        reviewDetails: state.restPage.reviewDetails,
+        mode: state.restPage.mode,
+        save: state.restPage.save,
+        imagemode: state.restPage.imagemode,
+        menumode: state.restPage.menumode,
+        reviewmode: state.restPage.reviewmode,
     };
 }
 
@@ -223,10 +284,12 @@ const mapDispatchToProps = (dispatch) => {
     return {
         saveRestaurantDetails: (data) => dispatch(saveRestaurantDetails(data)),
         saveMenuDetails: (data) => dispatch(saveMenuDetails(data)),
+        saveReviewDetails: (data) => dispatch(saveReviewDetails(data)),
         changeMode: (data) => dispatch(changeMode(data)),
         enableSave: (data) => dispatch(enableSave(data)),
         changeImageMode: (data) => dispatch(changeImageMode(data)),
         changeMenuMode: (data) => dispatch(changeMenuMode(data)),
+        changeReviewMode: (data) => dispatch(changeReviewMode(data)),
     }
 }
 

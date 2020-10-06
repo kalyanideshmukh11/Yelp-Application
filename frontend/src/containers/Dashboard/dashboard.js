@@ -67,7 +67,7 @@ class Dashboard extends Component {
     render() {
         return (            
             <Container className="mt-5 mb-5">
-                <h2 class="display-4">Restaurant Search</h2><br/>
+                <h2 className="display-4">Restaurant Search</h2><br/>
                 <div className="w-100 bg-light text-dark p-5 shadow rounded">
                 <RestaurantSearch submitHandler={this.search} recordFilters = { this.recordFilters }></RestaurantSearch>
                 </div>

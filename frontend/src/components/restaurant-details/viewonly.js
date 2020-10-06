@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const RestaurantDetails = (props) => {
     let content;
+    console.log(props.restaurantDetails)
     if( !props.mode && props.restaurantDetails && props.restaurantDetails.length){    
         content = (
             <div>

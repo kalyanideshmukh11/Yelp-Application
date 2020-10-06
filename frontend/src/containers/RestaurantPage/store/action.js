@@ -24,8 +24,12 @@ export const changeMenuMode = (payload) => {
 export const saveMenuDetails = (payload) => {
     return { type: actionTypes.SAVE_MENU_DETAILS, payload }
 };
-
-
-
+export const saveReviewDetails = (payload) => {
+    return { type: actionTypes.SAVE_REVIEW_DETAILS, payload }
+};
+export const changeReviewMode = (payload) => {
+    return { type: actionTypes.CHANGE_REVIEW_MODE, payload }
+};
+saveReviewDetails
 
 

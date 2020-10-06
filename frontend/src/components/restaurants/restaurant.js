@@ -4,7 +4,7 @@ import{GetMenuDetails} from '../../components/menu-details/getmenudetails';
 //import { createBrowserHistory as history} from 'history';
 import { useHistory } from 'react-router-dom';
 var routeChange= ()=> {
-    let path = `/restaurantdashboard`;
+    let path = `/restaurantpage`;
     this.props.history.push(path);
   }
 export const Restaurant = (props) => {    
@@ -17,7 +17,7 @@ export const Restaurant = (props) => {
     const list = Object.keys(restaurants).map(key =>
         <Card bg="light" className = "mt-2">
             <Card.Body>
-            <Button type="button" variant="link" className="p-0" href='/restaurantdashboard'>{restaurants[key].restaurant_name}</Button>
+            <Button type="button" variant="link" className="p-0" href='/restaurantpage'>{restaurants[key].restaurant_name}</Button>
             <Card.Text id="location">
             Location:   {restaurants[key].restaurant_location}
             </Card.Text>

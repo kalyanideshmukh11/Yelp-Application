@@ -14,6 +14,7 @@ import RestaurantDashboard from './containers/RestaurantDashboard/RestaurantDash
 import RestaurantEvent from './containers/RestaurantEvent/RestaurantEvent';
 import RestaurantOrder from './containers/RestaurantOrder/RestaurantOder';
 import Event from './containers/Event/event';
+import RestaurantPage from './containers/RestaurantPage/RestaurantPage';
 class Main extends Component {
 
     render() {
@@ -35,6 +36,7 @@ class Main extends Component {
                     <Route path="/restaurantdashboard" component={RestaurantDashboard} />
                     <Route path="/restaurantorder" component={RestaurantOrder} />
                     <Route path="/restaurantevent" component={RestaurantEvent} />
+                    <Route path="/restaurantpage" component={RestaurantPage} />
                     <Route path="/dashboard" component={Dashboard} />
                     <Route path="/event" component={Event} />
                     <Route path="/logout" component={Logout} />

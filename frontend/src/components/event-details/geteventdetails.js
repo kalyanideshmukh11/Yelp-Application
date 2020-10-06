@@ -14,9 +14,7 @@ export const GetEventDetails = (props) => {
                 <Card.Header>
                     Event Info:
                 </Card.Header>
-                <Card.Text>
-                Event Name: {(props.eventDetails && props.eventDetails.length) ? props.eventDetails[0].name : ''}
-                </Card.Text>
+                <Button type="button" variant="link" className="p-0" onClick={() => props.controlModal(true, props.eventDetails[0])}>{ props.eventDetails[0].name}</Button>
                 <Card.Text>
                 Description: {(props.eventDetails && props.eventDetails.length) ? props.eventDetails[0].description : ''}
                 </Card.Text>
@@ -42,7 +40,6 @@ export const GetEventDetails = (props) => {
     }
     return (
         <Card bg="light">
-            <img src={party} alt="party" height="140"/>
             <Card.Header>
             </Card.Header>
             <Card.Body>

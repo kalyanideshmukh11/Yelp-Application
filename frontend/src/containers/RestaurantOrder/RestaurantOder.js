@@ -4,7 +4,8 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { PATH } from '../../config';
-import { RestaurantDetails } from '../../components/restaurant-details/restaurantdetails';
+import { OrdersList } from '../../components/orders-list/orderslist';
+import { OrderSearch } from '../../components/order-search/ordersearch';
 import { saveRestaurantDetails, changeMode, enableSave } from './store/action';
 
 class RestaurantOrder extends Component {
@@ -90,7 +91,8 @@ saveRestaurantDetails = (event) => {
                 <Container className="mt-5 mb-5">                                           
                     <Row>
                         <Col sm={8} md={8} lg={8}>
-                        <RestaurantDetails restaurantDetails={this.props.restaurantDetails} submitHandler={this.saveRestaurantDetails} modeHandler = {this.changeMode} mode = {this.props.mode}></RestaurantDetails><br/>
+                        <OrderSearch restaurantDetails={this.props.restaurantDetails} submitHandler={this.saveRestaurantDetails} modeHandler = {this.changeMode} mode = {this.props.mode}></OrderSearch><br/>
+                        <OrdersList restaurantDetails={this.props.restaurantDetails} submitHandler={this.saveRestaurantDetails} modeHandler = {this.changeMode} mode = {this.props.mode}></OrdersList><br/>
                         </Col>
                     </Row>
                 </Container>            

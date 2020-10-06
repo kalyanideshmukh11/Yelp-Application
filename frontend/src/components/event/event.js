@@ -23,6 +23,7 @@ export const EventList = (props) => {
             Time :  {eventList[key].time}
             </Card.Text>        
             </Card.Body>
+            {props.eventsRegistered === eventList[key].event_id && props.success && <Badge variant="success">Registered</Badge>}
         </Card>
     );
     return (
@@ -50,7 +51,7 @@ export const EventList = (props) => {
                 <Button variant="secondary" onClick={() => props.controlModal(false)}>
                     Close
                 </Button>
-                <Button variant="primary" type="submit" onClick={() =>{ props.saveregisterEvent}}>
+                <Button variant="primary" type="submit" onClick={(e) => { props.saveregisterEvent(e, props.selectedEvent)}}>
                      Register
                 </Button>
                 </Modal.Footer>
@@ -58,3 +59,5 @@ export const EventList = (props) => {
         </div>
     );  
 }
+
+//props.registerEvent}

@@ -28,8 +28,14 @@ const eventseachReducer = (state = initialState, action) => {
         case actionTypes.REGISTER_EVENT:
             return {
                     ...state,
-                    eventattendee: action.payload,                
+                    success: action.payload,                
                 }
+        case actionTypes.SAVE_ATTENDEE:
+            return {
+                ...state,
+                eventattendee: action.payload,  
+                              
+            }
         default:
             return initialState;
     }

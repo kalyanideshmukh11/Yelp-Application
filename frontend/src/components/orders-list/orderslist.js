@@ -1,23 +1,17 @@
 import React from 'react';
 import { Card, Button, Modal, Form, Alert, Badge } from 'react-bootstrap';
 import{GetMenuDetails} from '../../components/menu-details/getmenudetails';
-//import { createBrowserHistory as history} from 'history';
-import { useHistory } from 'react-router-dom';
-var routeChange= ()=> {
-    let path = `/restaurantdashboard`;
-    this.props.history.push(path);
-  }
-export const Restaurant = (props) => {    
+
+
+export const OrdersList = (props) => {    
     let restaurants = props.restaurants;
     if(props.searchResults.length){
          restaurants = props.searchResults;
      }
-   
-     const history = useHistory()
     const list = Object.keys(restaurants).map(key =>
         <Card bg="light" className = "mt-2">
             <Card.Body>
-            <Button type="button" variant="link" className="p-0" href='/restaurantdashboard'>{restaurants[key].restaurant_name}</Button>
+            <Button type="button" variant="link" className="p-0" onClick={() => props.controlModal(true, restaurants[key])}>{restaurants[key].restaurant_name}</Button>
             <Card.Text id="location">
             Location:   {restaurants[key].restaurant_location}
             </Card.Text>

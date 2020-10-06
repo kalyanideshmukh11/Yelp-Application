@@ -51,13 +51,13 @@ router.get('/list', auth, async (req, res) => {
 
 router.post('/register', auth, async (req, res) => {
     try {
+        console.log("inside post attendee")
         const eventdata = req.body;
         console.log(req.body)
         var eventdataEntry = new EventAttendee({
             ...eventdata,
-            customer_id: req.user.id,
-            rest_id: req.body.rest_id,
-            event_id: req.body.id})
+            customer_id: req.user.id
+        })
             await eventdataEntry.save();
             console.log("done")
             res.status(200).json(eventdataEntry);

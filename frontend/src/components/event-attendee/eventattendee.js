@@ -12,22 +12,13 @@ export const EventAttendee = (props) => {
         content = Object.keys(menus).map((key,i) =>(
             <div>
                 <Card.Header>
-                {i+1}. Menu Info
+                {i+1}. Registered Events
                 </Card.Header>
                 <Card.Text>
-                Dish Name: {(props.eventattendee && props.eventattendee.length) ? props.eventattendee[i].name : ''}
+                Event Name: {(props.eventattendee && props.eventattendee.length) ? props.eventattendee[i].name : ''}
                 </Card.Text>
                 <Card.Text>
-                Description: {(props.eventattendee && props.eventattendee.length) ? props.eventattendee[i].description : ''}
-                </Card.Text>
-                <Card.Text>
-                Dish Ingredients: {(props.eventattendee && props.eventattendee.length) ? props.eventattendee[i].ingredients: ''}
-                </Card.Text>
-                <Card.Text>
-                Category: {(props.eventattendee && props.eventattendee.length) ? props.eventattendee[i].category: ''}
-                </Card.Text>
-                <Card.Text>
-                    Price in USD: {(props.eventattendee && props.eventattendee.length) ? props.eventattendee[i].price: ''}
+                Date: {(props.eventattendee && props.eventattendee.length) ? props.eventattendee[i].date : ''}
                 </Card.Text>
                 <br/>
             </div>

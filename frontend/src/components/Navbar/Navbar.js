@@ -10,7 +10,7 @@ import   '../../assets/style.css';
 class Navigation extends Component {
     render() {
         return (
-            <Navbar bg="light" variant="light">                
+            <Navbar bg="dark" variant="dark">                
                 <Nav className="mr-auto">
                     <Navbar.Brand href="#"><img
                         alt=""

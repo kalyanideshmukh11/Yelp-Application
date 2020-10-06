@@ -33,7 +33,7 @@ class Dashboard extends Component {
     }
 
     search = (event) => {
-        event.preventDefault();
+        //  event.preventDefault();
         let restaurants = this.props.restaurants.filter(restaurant => {
             return restaurant.restaurant_city.includes(event.target.elements[1].value)
         });
@@ -72,7 +72,7 @@ class Dashboard extends Component {
                 <RestaurantSearch submitHandler={this.search} recordFilters = { this.recordFilters }></RestaurantSearch>
                 </div>
                 <div className="w-100 bg-light text-dark mt-5 p-5 shadow rounded">
-                <Restaurant restaurants = { this.props.restaurants } searchResults = { this.props.searchResults } selectedRestaurant = {this.selectedRestaurant}controlModal = {this.controlModal} openModal = {this.props.openModal} ></Restaurant>   
+                <Restaurant restaurants = { this.props.restaurants } searchResults = { this.props.searchResults } selectedRestaurant = {this.selectedRestaurant} controlModal = {this.controlModal} openModal = {this.props.openModal} ></Restaurant>   
                 </div>
             </Container>  
         )

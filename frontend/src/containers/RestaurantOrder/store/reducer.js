@@ -9,7 +9,7 @@ const initialState = {
     isChecked:false
 }
  
-const restuarantReducer = (state = initialState, action) => {
+const orderReducer = (state = initialState, action) => {
     switch(action.type){
         case actionTypes.SAVE_RESTAURANT_DETAILS:  
             return {
@@ -31,4 +31,4 @@ const restuarantReducer = (state = initialState, action) => {
     }
 }
 
-export default restuarantReducer;
+export default orderReducer;

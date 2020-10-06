@@ -19,3 +19,8 @@ export const registerEvent = (payload) => {
 export const saveregisterEvent = (payload) => {
     return { type: actionTypes.SAVE_REGISTER_EVENT, payload }
 };
+export const saveAttendee = (payload) => {
+    return { type: actionTypes.SAVE_ATTENDEE, payload } 
+    
+};
+

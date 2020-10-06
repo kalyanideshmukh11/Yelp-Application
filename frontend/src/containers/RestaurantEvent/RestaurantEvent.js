@@ -88,8 +88,8 @@ changeEventMode = (mode) => {
                 <Container className="mt-5 mb-5">                                           
                     <Row>
                         <Col sm={8} md={8} lg={8}>
-                        <GetEventDetails eventDetails={this.props.eventDetails} eventmode = {this.props.eventmode}></GetEventDetails><br/>
                         <AddEventDetails eventDetails={this.props.eventDetails} submitHandler={this.saveEventDetails} changeEventMode = {this.changeEventMode} eventmode = {this.props.eventmode}></AddEventDetails><br/>
+                        <GetEventDetails eventDetails={this.props.eventDetails} eventmode = {this.props.eventmode}></GetEventDetails><br/>
                         </Col>
                     </Row>
                 </Container>            

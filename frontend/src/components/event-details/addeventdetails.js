@@ -45,6 +45,7 @@ export const AddEventDetails = (props) => {
 
     return (
         <Card bg="light">
+            <img src={party} alt="party" height="140"/>
             <Card.Header>
             <Button variant="link" onClick = { () => props.changeEventMode(true) }>Add Event</Button>
             </Card.Header>

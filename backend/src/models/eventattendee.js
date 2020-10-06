@@ -10,6 +10,20 @@ const eventatendeeModel = sequelize.define('eventattendee', {
             key: 'event_id',
         },
     },
+    name: {
+        type: Sequelize.STRING,
+        references: {
+            model: 'event',
+            key: 'name',
+        },
+    },
+    date: {
+        type: Sequelize.DATE,
+        references: {
+            model: 'event',
+            key: 'date',
+        },
+    },
     rest_id: {
         type: Sequelize.INTEGER,
         references: {

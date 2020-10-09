@@ -1,19 +1,20 @@
 import React from 'react';
 import { Card, Form,Row, Col, Button } from 'react-bootstrap';
-import { faEdit } from "@fortawesome/free-solid-svg-icons";
+//import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import { faPen } from "@fortawesome/free-solid-svg-icons";
 
 export const RestaurantDetails = (props) => {
     let content;
     if( !props.mode && props.restaurantDetails && props.restaurantDetails.length){    
         content = (
             <div>
+                 
                 <Card.Text>
                 Restaurant Name: {(props.restaurantDetails && props.restaurantDetails.length) ? props.restaurantDetails[0].restaurant_name : ''}
                 </Card.Text>
                 <Card.Text>
-                Last Name: {(props.restaurantDetails && props.restaurantDetails.length) ? props.restaurantDetails[0].restaurant_location : ''}
+                Location Name: {(props.restaurantDetails && props.restaurantDetails.length) ? props.restaurantDetails[0].restaurant_location : ''}
                 </Card.Text>
                 <Card.Text>
                 Email: {(props.restaurantDetails && props.restaurantDetails.length) ? props.restaurantDetails[0].email_id: ''}
@@ -21,9 +22,11 @@ export const RestaurantDetails = (props) => {
                 <Card.Text>
                 Phone Number: {(props.restaurantDetails && props.restaurantDetails.length) ? props.restaurantDetails[0].contact_info: ''}
                 </Card.Text>
+               
                 <Card.Text>
                     City: {(props.restaurantDetails && props.restaurantDetails.length) ? props.restaurantDetails[0].restaurant_city: ''}
                 </Card.Text>
+               
                 <Card.Text>
                     State: {(props.restaurantDetails && props.restaurantDetails.length) ? props.restaurantDetails[0].restaurant_state: ''}
                 </Card.Text>
@@ -33,6 +36,7 @@ export const RestaurantDetails = (props) => {
                 <Card.Text>
                     Zip: {(props.restaurantDetails && props.restaurantDetails.length) ? props.restaurantDetails[0].restaurant_zip: ''}
                 </Card.Text>
+               
                 <Card.Text>
                     Timing: {(props.restaurantDetails && props.restaurantDetails.length) ? props.restaurantDetails[0].timing: ''}
                 </Card.Text>
@@ -42,6 +46,7 @@ export const RestaurantDetails = (props) => {
                 <Card.Text>
                     Food Delivery Method: {(props.restaurantDetails && props.restaurantDetails.length) ? props.restaurantDetails[0].delivery_method: ''}
                 </Card.Text>
+                
             </div>
         );
     } else 
@@ -127,9 +132,9 @@ export const RestaurantDetails = (props) => {
     }
 
     return (
-        <Card bg="light">
+        <Card border= "danger" bg="light" text="dark">
             <Card.Body>
-            <Row><Button variant="link" style={{paddingLeft: '300px'}} onClick={  props.modeHandler}><FontAwesomeIcon icon={faEdit} /></Button></Row>
+            <Row><Button variant="link" style={{paddingLeft: '300px'}} onClick={  props.modeHandler}><FontAwesomeIcon icon={faPen} style={{ color: 'red' }}/></Button></Row>
             <Card.Title>Restaurant Details</Card.Title>
             {content}            
             </Card.Body>

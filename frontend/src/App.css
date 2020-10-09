@@ -42,3 +42,15 @@
     transform: rotate(360deg);
   }
 }
+
+.grandparent{
+  display:flex;
+  flex-direction:column;
+ }
+ .parent{
+   display:flex; 
+ }
+ 
+ .child{
+   text-align:center;
+ }

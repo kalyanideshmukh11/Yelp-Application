@@ -1,7 +1,7 @@
 import * as actionTypes from '../../../constants/action-types';
 
-export const saveRestaurantDetails = (payload) => {
-    return { type: actionTypes.SAVE_RESTAURANT_DETAILS, payload }
+export const saveOrderDetails = (payload) => {
+    return { type: actionTypes.SAVE_ORDER_DETAILS, payload }
 };
 
 export const changeMode = (payload) => {

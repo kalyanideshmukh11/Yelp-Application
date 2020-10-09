@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import Profile from './containers/Profile/CustomerProfile';
 import RestaurantDashboard from './containers/RestaurantDashboard/RestaurantDashboard';
 import RestaurantEvent from './containers/RestaurantEvent/RestaurantEvent';
-import RestaurantOrder from './containers/RestaurantOrder/RestaurantOder';
+import RestaurantOrder from './containers/RestaurantOrder/RestaurantOrder';
 import Event from './containers/Event/event';
 import RestaurantPage from './containers/RestaurantPage/RestaurantPage';
 class Main extends Component {

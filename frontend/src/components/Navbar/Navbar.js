@@ -20,10 +20,10 @@ class Navigation extends Component {
                         className="d-inline-block align-top"
                     />{' '}
                     Yelp</Navbar.Brand>                    
-                    {localStorage.getItem('token') && cookie.load('persona')==='customer' && <Nav.Link href="/dashboard">Dashboard</Nav.Link>}
+                    {localStorage.getItem('token') && cookie.load('persona')==='customer' && <Nav.Link  class="active" class="active" href="/dashboard">Dashboard</Nav.Link>}
                     {localStorage.getItem('token') && cookie.load('persona')==='restaurant' && <Nav.Link href="/restaurantdashboard">Dashboard</Nav.Link>}
                     {localStorage.getItem('token') && cookie.load('persona')==='customer' && <Nav.Link href="/orders">Orders</Nav.Link>}
-                    {localStorage.getItem('token') && cookie.load('persona')==='customer' &&<Nav.Link href="/event">Events</Nav.Link>}
+                    {localStorage.getItem('token') && cookie.load('persona')==='customer' &&<Nav.Link class="active" href="/event">Events</Nav.Link>}
                     {localStorage.getItem('token') && cookie.load('persona')==='restaurant' && <Nav.Link href="/restaurantorder">Orders</Nav.Link>}
                     {localStorage.getItem('token') && cookie.load('persona')==='restaurant' &&<Nav.Link href="/restaurantevent">Events</Nav.Link>}
                 </Nav>

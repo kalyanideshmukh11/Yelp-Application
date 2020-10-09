@@ -58,8 +58,6 @@ class Dashboard extends Component {
         this.selectedRestaurant = restaurant;
     }
 
-    
-
     applyToJob = () => {
         this.props.applyToJob(true);
     }

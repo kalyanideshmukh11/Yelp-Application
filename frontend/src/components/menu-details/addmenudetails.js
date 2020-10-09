@@ -52,15 +52,11 @@ export const AddMenuDetails = (props) => {
     }
 
     return (
-        <Card bg="light">
-            <Card.Header>
-            <Button variant="link" onClick = { () => props.changeMenuMode(true) }>Add Menu</Button>
-            </Card.Header>
+        <Card border="danger" bg="light">
+            <Button variant="danger" onClick = { () => props.changeMenuMode(true) }>Add Menu</Button>           
             <Card.Body>
             {content}            
             </Card.Body>
-            <Card.Footer>
-            </Card.Footer>
         </Card>
     );  
 }

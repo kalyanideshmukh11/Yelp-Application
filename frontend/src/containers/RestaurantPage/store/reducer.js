@@ -4,10 +4,12 @@ import * as actionTypes from '../../../constants/action-types';
 
 
 const initialState = {
+    selectedRestaurant: null,
     restaurantDetails: null,
     restaurantImages:null,
     menuDetails: null,
     reviewDetails:null,
+    message :"",
     mode: false,
     save: false,
     imagemode:false,
@@ -62,6 +64,11 @@ const restPageReducer = (state = initialState, action) => {
                     ...state,
                     reviewmode: action.payload
                 }
+                case actionTypes.CHANGE_MESSAGE:
+                    return {
+                        ...state,
+                        message: action.payload
+                    }
         default:
             return initialState;
     }

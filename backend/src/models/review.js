@@ -1,23 +1,16 @@
 const Sequelize = require('sequelize');
 const { sequelize } = require('../db/sequelize');
 
-const orderModel = sequelize.define('order', {
-    order_id:{type: Sequelize.INTEGER,primaryKey: true,unique: true,allowNull: false,autoIncrement: true},
-    order_status: {type: Sequelize.STRING, },
-    delivery_status: {type: Sequelize.STRING,},
-    date: {type: Sequelize.DATE, },
+const reviewModel = sequelize.define('review', {
+    review_id:{type: Sequelize.INTEGER,primaryKey: true,unique: true,allowNull: false,autoIncrement: true},
+    comment: {type: Sequelize.STRING,},
+    rating: { type: Sequelize.INTEGER,},
+    date: {type: Sequelize.DATE,},
     rest_id: {
         type: Sequelize.INTEGER,
         references: {
             model: 'restaurant',
             key: 'id',
-        },
-    },
-    rest_name:{
-        type: Sequelize.STRING,
-        references: {
-            model: 'restaurant',
-            key: 'restaurant_name',
         },
     },
     customer_id: {
@@ -27,16 +20,16 @@ const orderModel = sequelize.define('order', {
             key: 'id',
         },
     },
-    customer_name:{
+    customer_name: {
         type: Sequelize.STRING,
         references: {
             model: 'customer',
             key: 'first_name',
         },
-    }
+    },
 }, {
-    tableName: 'order',
+    tableName: 'review',
     timestamps: false
 });
 
-module.exports = orderModel;
+module.exports = reviewModel    ;

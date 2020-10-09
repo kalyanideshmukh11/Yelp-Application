@@ -3,7 +3,8 @@ import * as actionTypes from '../../../constants/action-types';
 
 
 const initialState = {
-    restaurantDetails: null,
+    orderDetails: [],
+    ordersearchResults: [],
     mode: false,
     save: false,
     isChecked:false
@@ -11,11 +12,16 @@ const initialState = {
  
 const orderReducer = (state = initialState, action) => {
     switch(action.type){
-        case actionTypes.SAVE_RESTAURANT_DETAILS:  
+        case actionTypes.SAVE_ORDER_DETAILS:  
             return {
                 ...state,
-                restaurantDetails: action.payload
+                orderDetails: action.payload
             }
+        case actionTypes.RETURN_ORDERS:
+            return {
+                    ...state,
+                    ordersearchResults: action.payload,                
+                }
         case actionTypes.CHANGE_MODE:
             return {
                 ...state,

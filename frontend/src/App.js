@@ -18,6 +18,7 @@ import Navigation from '../src/components/Navbar/Navbar';
 import eventseachReducer from '../src/containers/Event/store/reducer';
 import orderReducer from './containers/RestaurantOrder/store/reducer';
 import restPageReducer from './containers/RestaurantPage/store/reducer';
+import placeOrderReducer from './containers/Orders/store/reducer';
 
 library.add(fab, faEdit, faUser);
 
@@ -32,6 +33,7 @@ const rootReducer = combineReducers({
   eventSearch: eventseachReducer,
   orderSearch: orderReducer,
   restPage: restPageReducer,
+  order: placeOrderReducer,
 })
 
 const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());

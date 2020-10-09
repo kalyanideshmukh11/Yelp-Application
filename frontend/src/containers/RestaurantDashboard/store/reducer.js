@@ -4,7 +4,7 @@ import * as actionTypes from '../../../constants/action-types';
 
 const initialState = {
     restaurantDetails: null,
-    restaurantImages:null,
+    restaurantImages:[],
     menuDetails: null,
     mode: false,
     save: false,

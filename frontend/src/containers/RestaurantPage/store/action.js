@@ -30,6 +30,8 @@ export const saveReviewDetails = (payload) => {
 export const changeReviewMode = (payload) => {
     return { type: actionTypes.CHANGE_REVIEW_MODE, payload }
 };
-saveReviewDetails
 
+export const changeMessage = (payload) => {
+    return { type: actionTypes.CHANGE_MESSAGE, payload }
+};
 

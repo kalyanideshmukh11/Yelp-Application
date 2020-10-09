@@ -22,18 +22,18 @@ export const RestaurantSearch = (props) => {
                 </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group as={Col} md="4" controlId="validationCustom04">
-                    <Button type="submit" style={{ marginTop: '32px' }}>Search</Button>
+                    <Button type="submit" variant="outline-danger" style={{ marginTop: '32px' }}>Search</Button>
                 </Form.Group>
             </Form.Row>
             <Form.Row className='w-75'>
                 <Form.Group as={Col} md="3" controlId="pickupFilter">
-                    <button type="button" onClick = {props.recordFilters} className="btn btn-outline-primary">Curbside Pickup</button>
+                    <button type="button" variant="outline-danger" onClick = {props.recordFilters} className="btn btn-outline-primary">Curbside Pickup</button>
                 </Form.Group>
                 <Form.Group as={Col} md="3" controlId="dineFilter">
-                    <button type="button" onClick = {props.recordFilters} className="btn btn-outline-primary">Dine In</button>
+                    <button type="button" variant="outline-danger" onClick = {props.recordFilters} className="btn btn-outline-primary">Dine In</button>
                 </Form.Group>
                 <Form.Group as={Col} md="3" controlId="delFilter">
-                    <button type="button" key= "delivery_method" value="Yelp Delivery" onClick = {props.recordFilters} className="btn btn-outline-primary">Yelp Delivery</button>
+                    <button type="button" variant="outline-danger" key= "delivery_method" value="Yelp Delivery" onClick = {props.recordFilters} className="btn btn-outline-primary">Yelp Delivery</button>
                 </Form.Group>
             </Form.Row>
             <Form.Row>

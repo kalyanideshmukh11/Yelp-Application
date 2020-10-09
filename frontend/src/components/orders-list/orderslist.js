@@ -4,31 +4,31 @@ import{GetMenuDetails} from '../../components/menu-details/getmenudetails';
 
 
 export const OrdersList = (props) => {    
-    let restaurants = props.restaurants;
-    if(props.searchResults.length){
-         restaurants = props.searchResults;
-     }
-    const list = Object.keys(restaurants).map(key =>
+    let orderDetails = props.orderDetails;
+    // if(props.ordersearchResults.length){
+    //      orderDetails = props.ordersearchResults;
+    //  }
+    const list = Object.keys(orderDetails).map(key =>
         <Card bg="light" className = "mt-2">
             <Card.Body>
-            <Button type="button" variant="link" className="p-0" onClick={() => props.controlModal(true, restaurants[key])}>{restaurants[key].restaurant_name}</Button>
+            <Button type="button" variant="link" className="p-0" onClick={() => props.controlModal(true, orderDetails[key])}>{orderDetails[key].restaurant_name}</Button>
             <Card.Text id="location">
-            Location:   {restaurants[key].restaurant_location}
+            Location:   {orderDetails[key].restaurant_location}
             </Card.Text>
             <Card.Text id="city">
-            City:  {restaurants[key].restaurant_city}
+            City:  {orderDetails[key].restaurant_city}
             </Card.Text>
             <Card.Text id="cousine">
-            Cuisines:   {restaurants[key].cousine} 
+            Cuisines:   {orderDetails[key].cousine} 
             </Card.Text>
             <Card.Text id="deliverymode">   
-            Deivery Method:  {restaurants[key].delivery_method}
+            Deivery Method:  {orderDetails[key].delivery_method}
             </Card.Text> 
             <Card.Text id="contact">
-            Contact Details:  {restaurants[key].contact_info}
+            Contact Details:  {orderDetails[key].contact_info}
             </Card.Text> 
             <Card.Text id="timing">
-            Timing:  {restaurants[key].timing}
+            Timing:  {orderDetails[key].timing}
             </Card.Text>         
             </Card.Body>
         </Card>

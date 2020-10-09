@@ -1,5 +1,5 @@
 import React, { Component, useReducer } from 'react';
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Container, Row, Col, Button,Badge,DropdownButton,Dropdown } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { PATH } from '../../config';
@@ -10,9 +10,10 @@ import{AddReview} from '../../components/review-details/addreview';
 import{GetReview} from '../../components/review-details/getreview';
 
 import { saveRestaurantDetails, changeMode, enableSave, changeImageMode, saveRestaurantImages, saveMenuDetails,
-changeMenuMode,changeReviewMode,saveReviewDetails} from './store/action';
+changeMenuMode,changeReviewMode,saveReviewDetails,changeMessage} from './store/action';
 
 class RestaurantPage extends Component {
+    
     constructor(){
         super();
         this.updateRestaurantDetails= this.updateRestaurantDetails.bind(this);
@@ -26,6 +27,7 @@ class RestaurantPage extends Component {
         this.getReviewDetails();
     }
 getRestaurantDetails = () => {
+    console.log("Inside page",this.props.customNameData)
     axios.defaults.headers.common['x-auth-token'] = localStorage.getItem('token');
     axios.get(PATH  + "/restaurantprofile/details")
     .then(res => {
@@ -239,9 +241,44 @@ saveReviewDetails = (event) => {
         //this.props.authFail(err.response.data.msg);
     })
 }
- handleClick(e) {
-    e.preventDefault();
-    console.log('The link was clicked.');
+
+changeMessage = (val) => {
+    this.props.message= val;
+    console.log(this.props.message)
+    }
+  
+  savePlaceOrder = (event) => {
+    event.preventDefault();
+    //console.log("res data",this.props.restaurantDetails)
+    const data = {
+        "rest_id": "1",
+        "rest_name": "Trident",            
+       // "customer_id": event.target.elements[1].value,  
+        "customer_name": "Kalyani Deshmukh", 
+        "order_status": "New",
+        "date":new Date(),
+        "delivery_status":"Yelp Delivery",
+    }
+    //Object.keys(data).forEach((key) => (data[key] == null) && delete data[key]);
+    axios.post(PATH + "/orders/create", data)
+    .then(res => {
+        if(res.status === 200){
+            localStorage.setItem('id', res.data.id);   
+            this.changeMessage("Order Placed !");
+        console.log("inside save:",this.props.message);        
+        }
+        //this.changeMode(false)
+        // this.getReviewDetails(res.data);
+        // this.changeReviewMode(false)
+        
+
+    })
+    .catch(err=>{
+        //this.props.authFail(err.response.data.msg);
+    })
+}
+sayHello() {
+    alert('Order Placed, Successfully!');
   }
 //==============================================
     render(){
@@ -251,7 +288,13 @@ saveReviewDetails = (event) => {
                     <Row>
                     <Col sm={4} md={4} lg={4}>
                     <RestaurantImages restaurantImages={this.props.restaurantImages} submitHandler={this.addRestaurantImage} changeImageMode = {this.changeImageMode} imagemode = {this.props.imagemode}></RestaurantImages><br/>
-                    <Button href="#" onClick={this.UNSAFE_componentWillMounthandleClick}> Order Now</Button><br/>
+                    <DropdownButton id="dropdown-basic-button" variant='info' title="Choose Delivery Method">
+                    <Dropdown.Item href="#/action-1">Curbside Pickup</Dropdown.Item>
+                    <Dropdown.Item href="#/action-2">Yelp Delivery</Dropdown.Item>
+                    </DropdownButton>
+                    <br/>
+                    <Button href="#" variant="outline-success" onClick={this.savePlaceOrder,this.sayHello}>Place Order Now</Button><br/>
+                    <Badge variant="success">{this.props.message}</Badge> <br/>
                     <br/>
                     <AddReview reviewDetails={this.props.reviewDetails} submitHandler={this.saveReviewDetails}reviewmode = {this.props.reviewmode} changeReviewMode = {this.changeReviewMode}> </AddReview><br/>
                     <GetReview reviewDetails={this.props.reviewDetails} reviewmode = {this.props.reviewmode}></GetReview><br/>
@@ -277,6 +320,7 @@ const mapStateToProps = (state) => {
         imagemode: state.restPage.imagemode,
         menumode: state.restPage.menumode,
         reviewmode: state.restPage.reviewmode,
+        message: state.restPage.message,
     };
 }
 
@@ -290,6 +334,7 @@ const mapDispatchToProps = (dispatch) => {
         changeImageMode: (data) => dispatch(changeImageMode(data)),
         changeMenuMode: (data) => dispatch(changeMenuMode(data)),
         changeReviewMode: (data) => dispatch(changeReviewMode(data)),
+        changeMessage:(data) =>  dispatch(changeMessage(data))
     }
 }
 

@@ -6,20 +6,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export const OrderSearch = (props) => {
     return ( 
         <Form onSubmit={props.submitHandler}>
-            <Form.Row>
-                <Form.Group as={Col} md="4" controlId="validationCustom04">
-                    <Button type="submit" style={{ marginTop: '32px' }}>Search</Button>
-                </Form.Group>
-            </Form.Row>
             <Form.Row className='w-75'>
-                <Form.Group as={Col} md="3" controlId="pickupFilter">
-                    <button type="button" onClick = {props.recordFilters} className="btn btn-outline-primary">Curbside Pickup</button>
+                <Form.Group as={Col} md="4" controlId="pickupFilter">
+                    <button type="button" onClick = {props.recordFilters} value="New Order" className="btn btn-outline-primary">New Order</button>
                 </Form.Group>
-                <Form.Group as={Col} md="3" controlId="dineFilter">
-                    <button type="button" onClick = {props.recordFilters} className="btn btn-outline-primary">Dine In</button>
+                <Form.Group as={Col} md="4" controlId="dineFilter">
+                    <button type="button" onClick = {props.recordFilters} value="Delivered Order" className="btn btn-outline-primary">Delivered Order</button>
                 </Form.Group>
-                <Form.Group as={Col} md="3" controlId="delFilter">
-                    <button type="button" key= "delivery_method" value="Yelp Delivery" onClick = {props.recordFilters} className="btn btn-outline-primary">Yelp Delivery</button>
+                <Form.Group as={Col} md="4" controlId="delFilter">
+                    <button type="button" key= "order_status" value="Cancelled Order" onClick = {props.recordFilters} className="btn btn-outline-primary">Cancelled Order</button>
+                </Form.Group>
+                <Form.Group as={Col} md="4" controlId="validationCustom04">
+                    <Button type="submit" style={{ marginTop: '32px' }}>Filter</Button>
                 </Form.Group>
             </Form.Row>
             <Form.Row>

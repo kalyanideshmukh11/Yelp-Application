@@ -10,9 +10,10 @@ export const RestaurantDetails = (props) => {
     if( !props.mode && props.restaurantDetails && props.restaurantDetails.length){    
         content = (
             <div>
-                <Card.Text>
-                Restaurant Name: {(props.restaurantDetails && props.restaurantDetails.length) ? props.restaurantDetails[0].restaurant_name : ''}
-                </Card.Text>
+               
+                <Card.Title>
+                {(props.restaurantDetails && props.restaurantDetails.length) ? props.restaurantDetails[0].restaurant_name : ''}
+                </Card.Title>
                 <Card.Text>
                 Last Name: {(props.restaurantDetails && props.restaurantDetails.length) ? props.restaurantDetails[0].restaurant_location : ''}
                 </Card.Text>
@@ -22,9 +23,11 @@ export const RestaurantDetails = (props) => {
                 <Card.Text>
                 Phone Number: {(props.restaurantDetails && props.restaurantDetails.length) ? props.restaurantDetails[0].contact_info: ''}
                 </Card.Text>
+           
                 <Card.Text>
                     City: {(props.restaurantDetails && props.restaurantDetails.length) ? props.restaurantDetails[0].restaurant_city: ''}
                 </Card.Text>
+               
                 <Card.Text>
                     State: {(props.restaurantDetails && props.restaurantDetails.length) ? props.restaurantDetails[0].restaurant_state: ''}
                 </Card.Text>
@@ -43,6 +46,8 @@ export const RestaurantDetails = (props) => {
                 <Card.Text>
                     Food Delivery Method: {(props.restaurantDetails && props.restaurantDetails.length) ? props.restaurantDetails[0].delivery_method: ''}
                 </Card.Text>
+           
+                
             </div>
         );
     } else 
@@ -53,7 +58,6 @@ export const RestaurantDetails = (props) => {
     return (
         <Card bg="light">
             <Card.Body>
-            <Card.Title>Restaurant Details</Card.Title>
             {content}            
             </Card.Body>
         </Card>

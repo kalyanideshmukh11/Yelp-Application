@@ -5,18 +5,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const GetMenuDetails = (props) => {
     let content;
-    console.log(props.menuDetails)
+    // console.log(props.menuDetails)
     if(props.menuDetails && props.menuDetails.length ){   
-        console.log("from props",props.menuDetails[0]) 
+        // console.log("from props",props.menuDetails[0]) 
         let menus = props.menuDetails;
         content = Object.keys(menus).map((key,i) =>(
             <div>
                 <Card.Header>
-                {i+1}. Menu Info
+                {i+1}.{(props.menuDetails && props.menuDetails.length) ? props.menuDetails[i].name : ''}
                 </Card.Header>
-                <Card.Text>
-                Dish Name: {(props.menuDetails && props.menuDetails.length) ? props.menuDetails[i].name : ''}
-                </Card.Text>
                 <Card.Text>
                 Description: {(props.menuDetails && props.menuDetails.length) ? props.menuDetails[i].description : ''}
                 </Card.Text>
@@ -42,9 +39,8 @@ export const GetMenuDetails = (props) => {
 
     }
     return (
-        <Card bg="light">
-            <Card.Header>
-            </Card.Header>
+        <Card border="danger" bg="light">
+            <Card.Title align="center">  Menu List </Card.Title>
             <Card.Body>
             {content}            
             </Card.Body>

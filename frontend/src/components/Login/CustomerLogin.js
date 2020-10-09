@@ -34,7 +34,6 @@ class CustomerLogin extends Component {
     passwordHandler = (event) => {
         this.props.addPassword(event.target.value);
     }
-
     render() {
         return (
             <Container className="m-5 d-flex justify-content-center">                

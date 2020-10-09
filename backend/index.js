@@ -16,7 +16,9 @@ const customerProfileHandler = require('./src/routes/customer/customerProfile');
 const customerPhotoHandler = require('./src/routes/customer/customerPhoto');
 const restaurantHandler= require('./src/routes/restaurant/restaurantLogin');
 const restaurantProfile= require('./src/routes/restaurant/restaurantProfile');
+const restaurantImages= require('./src/routes/restaurant/restaurantPhoto');
 const orderHandler= require('./src/routes/orders/search');
+const reviewHandler= require('./src/routes/review/review');
 
 app.use(bodyParser.json());
 
@@ -30,6 +32,8 @@ app.use('/customerprofile', customerProfileHandler);
 app.use('/customerphoto', customerPhotoHandler);
 app.use('/events', eventHandler);
 app.use('/orders',orderHandler);
+app.use('/review',reviewHandler)
+app.use('/images',restaurantImages);
 app.listen('3001', () => {
     console.log('Yelp backend running on port 3001');
 });

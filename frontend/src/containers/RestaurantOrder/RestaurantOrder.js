@@ -6,15 +6,16 @@ import axios from 'axios';
 import { PATH } from '../../config';
 import { OrdersList } from '../../components/orders-list/orderslist';
 import { OrderSearch } from '../../components/order-search/ordersearch';
-import { saveOrderDetails, changeMode, enableSave } from './store/action';
+import { saveOrderDetails, changeMode,returnOrders, enableSave } from './store/action';
 
 class RestaurantOrder extends Component {
-    // constructor(){
-    //     super();
-    //     this.updateOrderDetails= this.updateOrderDetails.bind(this);
-    // }
+    constructor(){
+        super();
+        this.updateOrderDetails= this.updateOrderDetails.bind(this);
+    }
     filters = [];
     ordersearchResults = {};
+    
     componentDidMount(){
         this.getOrderDetails();
     }
@@ -25,8 +26,9 @@ getOrderDetails = () => {
     axios.get(PATH  + "/orders/info")
     .then(res => {
         if(res.status === 200){ 
-             console.log("got order data")
-                this.props.saveOrderDetails(res.data);  
+             console.log(res.data);
+                this.props.saveOrderDetails(res.data); 
+                console.log("props value",this.props.orderDetails) 
         }
     })
     .catch(err=>{
@@ -34,42 +36,41 @@ getOrderDetails = () => {
     })
 }
 
-// updateOrderDetails = (value) => {
-//     let newDetails = {};
-//     Object.assign(newDetails, this.props.restaurantDetails);
-//     newDetails.push(value);
-//     this.props.saveOrderDetails(newDetails);
-// }
+updateOrderDetails = (value) => {
+    let newDetails = {};
+    Object.assign(newDetails, this.props.orderDetails);
+    newDetails.push(value);
+    this.props.saveOrderDetails(newDetails);
+}
 
-// saveOrderDetails = (event) => {
-//     event.preventDefault();
-//     const data = {
-//         //"id": this.props.basicDetails.id,
-//         "delivery_status": event.target.elements[0].value,            
-//         "order_status": event.target.elements[1].value,          
-//     }
-//     //Object.keys(data).forEach((key) => (data[key] == null) && delete data[key]);
-//     axios.post(PATH + "/orders/status", data)
-//     .then(res => {
-//         if(res.status === 200){
-//             localStorage.setItem('id', res.data.id);           
-//         }
-//         //this.changeMode(false)
-//         this.getOrderDetails(res.data);
-//         this.changeMode(false)
-//     })
-//     .catch(err=>{
-//         //this.props.authFail(err.response.data.msg);
-//     })
-// }
-    changeMode = (event) => {
-        if(event.target.innerText === 'Cancel' || event.target.innerText === 'Save'){
-            this.props.changeMode(false);
-        } else {
-            this.props.changeMode(true);
-        }
+saveOrderDetails = (event) => {
+    event.preventDefault();
+    const data = {
+        //"id": this.props.basicDetails.id,
+        "delivery_status": event.target.elements[0].value,            
+        "order_status": event.target.elements[1].value,          
     }
+    console.log("props value",this.props.orderDetails)
+    //Object.keys(data).forEach((key) => (data[key] == null) && delete data[key]);
+    axios.post(PATH + "/orders/status", data)
+    .then(res => {
+        if(res.status === 200){
+            localStorage.setItem('id', res.data.id);           
+        }
+        //this.changeMode(false)
+        console.log("props value",this.props.orderDetails)
+        this.getOrderDetails(res.data);
+        //this.changeMode(false)
+        console.log("props value",this.props.orderDetails)
+    })
+    .catch(err=>{
+        //this.props.authFail(err.response.data.msg);
+    })
+}
 
+    changeMode = (mode) => {
+        this.props.changeMode(mode);
+        }
     enableSave = (event) => {
         if(!event){
             this.props.enableSave(false);
@@ -78,6 +79,26 @@ getOrderDetails = () => {
         }        
     }
 //========================================
+searchOrder = (event) => {
+    //  event.preventDefault();
+    let orderDetails = this.props.orderDetails
+    if(this.filters.length) {
+        
+        this.filters.forEach(filter => {
+            orderDetails = orderDetails.filter(restaurant => {
+               return orderDetails['order_status'] === filter.toString();
+            })
+        })
+    }
+
+  this.props.returnOrders(orderDetails);
+}
+
+recordFilters = (event) => {
+    this.filters.push(event.target.innerText);
+}
+
+//=========================================
     render(){
         // if(this.props.basicDetails && this.props.education && this.props.education.length && this.props.experience && this.props.experience.length){
             return (
@@ -85,8 +106,9 @@ getOrderDetails = () => {
                 <h2 className="display-4">Order Search</h2><br/>                                         
                     <Row>
                         <Col sm={8} md={8} lg={8}>
-                            <OrderSearch></OrderSearch>
-                       </Col>
+                            <OrderSearch submitHandler={this.searchOrder} recordFilters = { this.recordFilters }></OrderSearch>
+                            <OrdersList orderDetails={this.props.orderDetails} submitHandler={this.saveOrderDetails} ordersearchResults= {this.props.ordersearchResults} changeMode={this.props.changeMode} mode = {this.props.mode}></OrdersList><br/>
+                        </Col>
                     </Row>
                 </Container>            
             )     
@@ -112,5 +134,5 @@ const mapDispatchToProps = (dispatch) => {
 
 export default connect(mapStateToProps, mapDispatchToProps)(RestaurantOrder);
 
-//<OrdersList orderDetails={this.orderDetails} submitHandler={this.saveOrderDetails} modeHandler = {this.changeMode} mode = {this.props.mode}></OrdersList><br/>
+//<OrdersList orderDetails={this.props.orderDetails} submitHandler={this.saveOrderDetails} modeHandler = {this.changeMode} mode = {this.props.mode}></OrdersList><br/>
                         

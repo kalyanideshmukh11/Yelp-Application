@@ -14,6 +14,7 @@ import { saveEventDetails, changeEventMode, enableSave } from './store/action';
 
 
 class RestaurantEvent extends Component {
+    selectedEvent = {};
     constructor(){
         super();
         this.updateEventDetails= this.updateEventDetails.bind(this);
@@ -57,6 +58,7 @@ saveEventDetails = (event) => {
            
     }
     //Object.keys(data).forEach((key) => (data[key] == null) && delete data[key]);
+    console.log(data)
     axios.post(PATH + "/events/eventdetails", data)
     .then(res => {
         if(res.status === 200){
@@ -81,6 +83,11 @@ changeEventMode = (mode) => {
             this.props.enableSave(true);
         }        
     }
+
+    controlModal = (action, eventList) => {
+        this.props.controlModal(action);
+        this.selectedEvent = eventList;
+    }
 //========================================
     render(){
         // if(this.props.basicDetails && this.props.education && this.props.education.length && this.props.experience && this.props.experience.length){
@@ -89,7 +96,7 @@ changeEventMode = (mode) => {
                     <Row>
                         <Col sm={8} md={8} lg={8}>
                         <AddEventDetails eventDetails={this.props.eventDetails} submitHandler={this.saveEventDetails} changeEventMode = {this.changeEventMode} eventmode = {this.props.eventmode}></AddEventDetails><br/>
-                        <GetEventDetails eventDetails={this.props.eventDetails} eventmode = {this.props.eventmode}></GetEventDetails><br/>
+                        <GetEventDetails eventDetails={this.props.eventDetails} eventmode = {this.props.eventmode} selectedEvent={this.selectedEvent}controlModal = {this.controlModal} openModal = {this.props.openModal}></GetEventDetails><br/>
                         </Col>
                     </Row>
                 </Container>            
@@ -102,6 +109,8 @@ const mapStateToProps = (state) => {
         eventDetails: state.event.eventDetails,
         eventmode: state.event.eventmode,
         save: state.event.save,
+        openModal: state.event.openModal,
+        
     };
 }
 

@@ -6,10 +6,12 @@ const initialState = {
     restaurantDetails: null,
     restaurantImages:[],
     menuDetails: null,
+    reviewDetails:null,
     mode: false,
     save: false,
     imagemode:false,
     menumode:false,
+    reviewmode:false,
 }
  
 const restuarantReducer = (state = initialState, action) => {
@@ -49,6 +51,16 @@ const restuarantReducer = (state = initialState, action) => {
                         ...state,
                         menumode: action.payload
                     }
+            case actionTypes.SAVE_REVIEW_DETAILS:  
+            return {
+                ...state,
+                reviewDetails: action.payload
+            }
+            case actionTypes.CHANGE_REVIEW_MODE:
+                return {
+                    ...state,
+                    reviewmode: action.payload
+                }
         default:
             return initialState;
     }

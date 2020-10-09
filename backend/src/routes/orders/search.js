@@ -59,14 +59,15 @@ router.get('/info', auth, async (req, res) => {
                 rest_id: req.user.id,
             },
         });
+        
         if (orderList) {
+            console.log(orderList)
             return res.status(200).json(orderList);
         }
     } catch (e) {
         return res.status(500).json('Unable to fetch data.');
     }
 });
-
 
 //customer create order
 router.post('/create', auth, async (req, res) => {

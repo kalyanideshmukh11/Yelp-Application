@@ -5,7 +5,7 @@ import axios from 'axios';
 import { PATH } from '../../config';
 import { RestaurantDetails } from '../../components/restaurant-details/viewonly';
 import{GetMenuDetails} from '../../components/menu-details/getmenudetails';
-import { RestaurantImages } from '../../components/restaurant-images/restaurantimages';
+import { RestaurantImages } from '../../components/restaurant-images/viewonly';
 import{AddReview} from '../../components/review-details/addreview';
 import{GetReview} from '../../components/review-details/getreview';
 
@@ -19,10 +19,11 @@ class RestaurantPage extends Component {
         this.updateRestaurantDetails= this.updateRestaurantDetails.bind(this);
         this.updateMenuDetails= this.updateMenuDetails.bind(this);
         this.updateReviewDetails= this.updateReviewDetails.bind(this);
+        this.updateImageDetails= this.updateImageDetails.bind(this);
     }
     componentDidMount(){
         this.getRestaurantDetails();
-        this.getRestaurantImages();
+       this.getRestaurantImages();
         this.getMenuDetails();
         this.getReviewDetails();
     }
@@ -92,18 +93,22 @@ saveRestaurantDetails = (event) => {
         }        
     }
 //========================================
+//========================================
 getRestaurantImages = () => {
     //var token= 'Bearer '.concat(localStorage.getItem('token'))
     axios.defaults.headers.common['x-auth-token'] = localStorage.getItem('token');
 
-    axios.get(PATH + "/customerphoto/profilepic")
+    axios.get(PATH + "/images/profilepic")
     .then(res => {
         if(res.status == 200){
             if(res.data){
-                console.log("data received",res.data[0].photo)
-
-                this.props.saveRestaurantImages(PATH +"/"+ res.data[0].photo);
-                console.log(res.data.restaurant_image)
+                console.log("data received",res.data.length)
+                var i;
+                //for (i = 0; i < res.data.length; i++) {
+                //this.props.saveRestaurantImages(PATH +"/"+ res.data[i].image);
+                this.props.saveRestaurantImages(res.data)
+                console.log(this.props.restaurantImages)
+                //}
             }
             //this.props.saveBasicDetails({...res.data, editMode:false});
         }
@@ -112,22 +117,37 @@ getRestaurantImages = () => {
         //this.props.setError(err.response.data);
     })
 }
-    addRestaurantImage = (event) => {
+
+updateImageDetails = (value) => {
+    let newDetails = {};
+    Object.assign(newDetails, this.props.restaurantImages);
+    newDetails.push(value);
+    this.props.saveRestaurantImages(newDetails);
+}
+saveRestaurantImages = (event) => {
         event.preventDefault();
         const formData = new FormData();
+        
         const file = event.target.elements[0].files[0];
-        formData.append('restaurant_image', event.target.elements[0].files[0]);
+        const data = {
+            //"id": this.props.basicDetails.id,
+            "image": event.target.elements[0].value,                
+        }
+        console.log(data)
+        formData.append('restaurantImages', event.target.elements[0].files[0]);
         formData.append('id', this.props.id);
         console.log("1")
-        axios.post(PATH + "/customerphoto/profilepic", formData, { 
+        axios.post(PATH + "/images/profilepic", formData, { 
             headers: {
                 'content-type':'multipart/form-data'
             }   
         })
         .then(res => {
             if(res.status === 200){
-                console.log("posted")
+                console.log("res.data")
                 this.props.saveRestaurantImages(PATH + "/" + file.name);
+                this.getRestaurantImages(res.data);
+                this.changeImageMode(false)
             }
         })
         .catch(err=>{
@@ -137,7 +157,8 @@ getRestaurantImages = () => {
 
     changeImageMode = (mode) => {
         this.props.changeImageMode(mode);
-        }
+    }
+        
 //=============================================
 getMenuDetails = () => {
     console.log("get of menu")
@@ -284,11 +305,11 @@ sayHello() {
     render(){
         // if(this.props.basicDetails && this.props.education && this.props.education.length && this.props.experience && this.props.experience.length){
             return (
-                <Container className="mt-5 mb-5">                                           
-                    <Row>
+                <Container>                                           
+                    <RestaurantImages restaurantImages={this.props.restaurantImages} submitHandler={this.saveRestaurantImages} changeImageMode = {this.changeImageMode} imagemode = {this.props.imagemode}></RestaurantImages><br/>
+                    <Row>                   
                     <Col sm={4} md={4} lg={4}>
-                    <RestaurantImages restaurantImages={this.props.restaurantImages} submitHandler={this.addRestaurantImage} changeImageMode = {this.changeImageMode} imagemode = {this.props.imagemode}></RestaurantImages><br/>
-                    <DropdownButton id="dropdown-basic-button" variant='info' title="Choose Delivery Method">
+                   <DropdownButton id="dropdown-basic-button" variant='info' title="Choose Delivery Method">
                     <Dropdown.Item href="#/action-1">Curbside Pickup</Dropdown.Item>
                     <Dropdown.Item href="#/action-2">Yelp Delivery</Dropdown.Item>
                     </DropdownButton>
@@ -312,7 +333,7 @@ sayHello() {
 const mapStateToProps = (state) => {
     return {
         restaurantDetails: state.restPage.restaurantDetails,
-        restaurant_image: state.restPage.restaurant_image,
+        restaurantImages: state.restPage.restaurantImages,
         menuDetails: state.restPage.menuDetails,
         reviewDetails: state.restPage.reviewDetails,
         mode: state.restPage.mode,
@@ -329,6 +350,7 @@ const mapDispatchToProps = (dispatch) => {
         saveRestaurantDetails: (data) => dispatch(saveRestaurantDetails(data)),
         saveMenuDetails: (data) => dispatch(saveMenuDetails(data)),
         saveReviewDetails: (data) => dispatch(saveReviewDetails(data)),
+        saveRestaurantImages: (data) => dispatch(saveRestaurantImages(data)),
         changeMode: (data) => dispatch(changeMode(data)),
         enableSave: (data) => dispatch(enableSave(data)),
         changeImageMode: (data) => dispatch(changeImageMode(data)),
@@ -339,3 +361,5 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(RestaurantPage);
+
+

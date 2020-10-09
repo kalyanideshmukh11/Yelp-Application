@@ -6,6 +6,7 @@ const initialState = {
     eventDetails: null,
     eventmode: false,
     save: false,
+    openModal: false,
 }
 const eventReducer = (state = initialState, action) => {
     switch(action.type){
@@ -24,6 +25,11 @@ const eventReducer = (state = initialState, action) => {
                 ...state,
                 save: action.payload
             }
+        case actionTypes.CONTROL_MODAL:
+            return {
+                    ...state,
+                    openModal: action.payload,                
+                }
         default:
             return initialState;
     }

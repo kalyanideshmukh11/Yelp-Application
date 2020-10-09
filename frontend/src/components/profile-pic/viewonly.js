@@ -36,12 +36,8 @@ export const ProfilePic = (props) => {
     return (
         <Card bg="light">
             <Card.Body>
-            <Row><Button variant="link" style={{paddingLeft: '300px'}} onClick={props.modeHandler}><FontAwesomeIcon icon={faEdit} /></Button></Row>
-            <Card.Title>
-                Profile Photo
-            </Card.Title>
             <Row className="justify-content-center">
-                <Image src={props.profilePic} width="100" height="100" />
+                <Image src={props.profilePic} width="200" height="200" />
             </Row>
             {content}
             </Card.Body>

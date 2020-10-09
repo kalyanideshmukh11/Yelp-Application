@@ -3,8 +3,8 @@ import * as actionTypes from '../../../constants/action-types';
 
 
 const initialState = {
-    orderDetails: [],
-    ordersearchResults: [],
+    orderDetails: null,
+    ordersearchResults: null,
     mode: false,
     save: false,
     isChecked:false

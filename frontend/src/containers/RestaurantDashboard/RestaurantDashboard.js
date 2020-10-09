@@ -11,10 +11,10 @@ import { PATH } from '../../config';
 import { RestaurantDetails } from '../../components/restaurant-details/restaurantdetails';
 import{GetMenuDetails} from '../../components/menu-details/getmenudetails';
 import{AddMenuDetails} from '../../components/menu-details/addmenudetails';
-import { RestaurantImages } from '../../components/restaurant-images/restaurantimages';
-
+import { RestaurantImages } from '../../components/restaurant-images/viewonly';
+import {GetReview} from '../../components/review-details/getreview';
 import { saveRestaurantDetails, changeMode, enableSave, changeImageMode, saveRestaurantImages, saveMenuDetails,
-changeMenuMode} from './store/action';
+changeMenuMode,changeReviewMode,saveReviewDetails} from './store/action';
 
 class RestaurantDashboard extends Component {
     constructor(){
@@ -22,12 +22,14 @@ class RestaurantDashboard extends Component {
         this.updateRestaurantDetails= this.updateRestaurantDetails.bind(this);
         this.updateMenuDetails= this.updateMenuDetails.bind(this);
         this.updateImageDetails= this.updateImageDetails.bind(this);
+       // this.updateReviewDetails= this.updateReviewDetails(this);
 
     }
     componentDidMount(){
         this.getRestaurantDetails();
         this.getRestaurantImages();
         this.getMenuDetails();
+        this.getReviewDetails();
     }
 getRestaurantDetails = () => {
     axios.defaults.headers.common['x-auth-token'] = localStorage.getItem('token');
@@ -210,7 +212,53 @@ saveMenuDetails = (event) => {
 changeMenuMode = (mode) => {
     this.props.changeMenuMode(mode);
     }
+//=============================================
+getReviewDetails = () => {
+    console.log("get of menu")
+    axios.defaults.headers.common['x-auth-token'] = localStorage.getItem('token');
+    axios.get(PATH  + "/review/review")
+    .then(res => {
+        if(res.status === 200){  
+            console.log("got the review")
+            console.log(res.data)
+                this.props.saveReviewDetails(res.data);
+                console.log(res.data)  
+        }
+    })
+    .catch(err=>{
+        //this.props.setError(err.response.data);
+    })
+}
 
+updateReviewDetails = (value) => {
+    let newDetails = {};
+    Object.assign(newDetails, this.props.reviewDetails);
+    newDetails.push(value);
+    this.props.saveReviewDetails(newDetails);
+}
+saveReviewDetails = (event) => {
+    event.preventDefault();
+    console.log("res data",this.props.restaurantDetails)
+    const data = {
+        "rest_id": this.props.restaurantDetails.id,
+        "comment": event.target.elements[0].value,            
+        "rating": event.target.elements[1].value,  
+        "date": new Date(),  
+    }
+    //Object.keys(data).forEach((key) => (data[key] == null) && delete data[key]);
+    axios.post(PATH + "/review/review", data)
+    .then(res => {
+        if(res.status === 200){
+            localStorage.setItem('id', res.data.id);           
+        }
+        //this.changeMode(false)
+        this.getReviewDetails(res.data);
+        this.changeReviewMode(false)
+    })
+    .catch(err=>{
+        //this.props.authFail(err.response.data.msg);
+    })
+}
 //=============================================
     render(){
         // if(this.props.basicDetails && this.props.education && this.props.education.length && this.props.experience && this.props.experience.length){
@@ -225,7 +273,8 @@ changeMenuMode = (mode) => {
                        </Col>  
                         <Col sm={8} md={8} lg={8}>
                         <RestaurantDetails restaurantDetails={this.props.restaurantDetails} submitHandler={this.saveRestaurantDetails} modeHandler = {this.changeMode} mode = {this.props.mode}></RestaurantDetails><br/>
-                       </Col>
+                        <GetReview reviewDetails={this.props.reviewDetails} reviewmode = {this.props.reviewmode}></GetReview><br/>
+                          </Col>
                     </Row>
                 </Container>            
             )     
@@ -237,6 +286,7 @@ const mapStateToProps = (state) => {
         restaurantDetails: state.restaurant.restaurantDetails,
         restaurantImages: state.restaurant.restaurantImages,
         menuDetails: state.restaurant.menuDetails,
+        reviewDetails: state.restaurant.reviewDetails,
         mode: state.restaurant.mode,
         save: state.restaurant.save,
         imagemode: state.restaurant.imagemode,
@@ -249,6 +299,7 @@ const mapDispatchToProps = (dispatch) => {
         saveRestaurantDetails: (data) => dispatch(saveRestaurantDetails(data)),
         saveMenuDetails: (data) => dispatch(saveMenuDetails(data)),
         saveRestaurantImages: (data) => dispatch(saveRestaurantImages(data)),
+        saveReviewDetails: (data) => dispatch(saveReviewDetails(data)),
         changeMode: (data) => dispatch(changeMode(data)),
         enableSave: (data) => dispatch(enableSave(data)),
         changeImageMode: (data) => dispatch(changeImageMode(data)),

@@ -83,12 +83,11 @@ searchOrder = (event) => {
     //  event.preventDefault();
     let orderDetails = this.props.orderDetails
     if(this.filters.length) {
-        
         this.filters.forEach(filter => {
             orderDetails = orderDetails.filter(restaurant => {
                 console.log(filter)
-                console.log(orderDetails['order_status'])
-               return orderDetails['order_status'] === filter.toString();
+                console.log(restaurant['order_status'],filter.toString())
+               return restaurant['order_status'] === filter.toString();
             })
         })
     }

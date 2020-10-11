@@ -15,7 +15,7 @@ export const RestaurantDetails = (props) => {
                 {(props.restaurantDetails && props.restaurantDetails.length) ? props.restaurantDetails[0].restaurant_name : ''}
                 </Card.Title>
                 <Card.Text>
-                Last Name: {(props.restaurantDetails && props.restaurantDetails.length) ? props.restaurantDetails[0].restaurant_location : ''}
+                 Location: {(props.restaurantDetails && props.restaurantDetails.length) ? props.restaurantDetails[0].restaurant_location : ''}
                 </Card.Text>
                 <Card.Text>
                 Email: {(props.restaurantDetails && props.restaurantDetails.length) ? props.restaurantDetails[0].email_id: ''}

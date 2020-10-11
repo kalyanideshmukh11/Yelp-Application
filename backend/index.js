@@ -6,7 +6,7 @@ const cors = require('cors');
 require('dotenv').config();
 
 app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
-
+//app.use(cors({ origin: 'http://54.151.2.194:3000', credentials: true }));
 app.use(express.static('uploads'));
 
 const loginHandler = require('./src/routes/customer/customerLogin');

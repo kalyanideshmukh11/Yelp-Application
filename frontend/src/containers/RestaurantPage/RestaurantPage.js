@@ -244,7 +244,7 @@ saveReviewDetails = (event) => {
     event.preventDefault();
     console.log("res data",this.props.restaurantDetails)
     const data = {
-        "customer_name":"Kalyani Deshmukh",
+        "customer_name":"Micheal Scott",
         "rest_id": "1",
         "comment": event.target.elements[0].value,            
         "rating": event.target.elements[1].value,  
@@ -283,7 +283,7 @@ changeMessage = (val) => {
     console.log(this.props.restaurantDetails)
     const data = {
         "rest_id": "1",
-        "rest_name": "Trident", 
+        "rest_name": "Sajj Med", 
         "dish_name":event.target.elements[1].value,            
         "customer_name": event.target.elements[0].value, 
         "order_status": "New Order",

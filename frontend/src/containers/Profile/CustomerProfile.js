@@ -112,7 +112,7 @@ saveBasicDetails = (event) => {
             }
         })
         .catch(err=>{
-            this.props.authFail(err.response.data.msg);
+            //this.props.authFail(err.response.data.msg);
         })
     }
 

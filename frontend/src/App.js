@@ -20,7 +20,7 @@ import orderReducer from './containers/RestaurantOrder/store/reducer';
 import restPageReducer from './containers/RestaurantPage/store/reducer';
 import placeOrderReducer from './containers/Orders/store/reducer';
 import custPageReducer from './containers/CustomerPage/store/reducer';
-
+import orderDataReducer from './containers/Orders/store/reducer';
 library.add(fab, faEdit, faUser);
 
 const rootReducer = combineReducers({
@@ -30,6 +30,7 @@ const rootReducer = combineReducers({
   profile: profileReducer,
   restaurant: restuarantReducer,
   event: eventReducer,
+  orderData: orderDataReducer,
   restSearch: seachReducer,
   eventSearch: eventseachReducer,
   orderSearch: orderReducer,

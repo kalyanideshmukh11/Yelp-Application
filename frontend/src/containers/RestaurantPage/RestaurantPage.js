@@ -244,8 +244,8 @@ saveReviewDetails = (event) => {
     event.preventDefault();
     console.log("res data",this.props.restaurantDetails)
     const data = {
-        "customer_name":"Abhishek Deshmukh",
-        "rest_id": this.props.restaurantDetails.id,
+        "customer_name":"Kalyani Deshmukh",
+        "rest_id": "1",
         "comment": event.target.elements[0].value,            
         "rating": event.target.elements[1].value,  
         "date": new Date(),  

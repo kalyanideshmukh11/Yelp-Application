@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
-// import Navigation from './components/Navbar/Navbar';
+ import Navigation from './components/Navbar/Navbar';
 import Dashboard from './containers/Dashboard/dashboard';
 import Signup from './components/Signup/Signup';
 import CustomerSignup from './components/Signup/CustomerSignup';
@@ -14,8 +14,10 @@ import RestaurantDashboard from './containers/RestaurantDashboard/RestaurantDash
 import RestaurantEvent from './containers/RestaurantEvent/RestaurantEvent';
 import RestaurantOrder from './containers/RestaurantOrder/RestaurantOrder';
 import Event from './containers/Event/event';
+import Order from './containers/Orders/order';
 import RestaurantPage from './containers/RestaurantPage/RestaurantPage';
 import CustomerPage from './containers/CustomerPage/CustomerPage';
+import AttendeeList from './components/event-attendee/attendeelist';
 class Main extends Component {
 
     render() {
@@ -41,6 +43,8 @@ class Main extends Component {
                     <Route path="/customerpage" component={CustomerPage} />
                     <Route path="/dashboard" component={Dashboard} />
                     <Route path="/event" component={Event} />
+                    <Route path="/attendeelist" component={AttendeeList} />
+                    <Route path="/orders" component={Order} />
                     <Route path="/logout" component={Logout} />
                     <Redirect to='/' />
                 </Switch>

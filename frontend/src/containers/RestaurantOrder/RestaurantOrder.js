@@ -29,6 +29,8 @@ getOrderDetails = () => {
              console.log(res.data);
                 this.props.saveOrderDetails(res.data); 
                 console.log("props value",this.props.orderDetails) 
+
+
         }
     })
     .catch(err=>{
@@ -47,15 +49,17 @@ saveOrderDetails = (event) => {
     event.preventDefault();
     const data = {
         //"id": this.props.basicDetails.id,
-        "delivery_status": event.target.elements[0].value,            
-        "order_status": event.target.elements[1].value,          
+        //"delivery_status": event.target.elements[0].value, 
+        "order_id": "2" ,          
+        "order_status": event.target.elements[0].value,          
     }
-    console.log("props value",this.props.orderDetails)
+
+    console.log("props value",data)
     //Object.keys(data).forEach((key) => (data[key] == null) && delete data[key]);
-    axios.post(PATH + "/orders/status", data)
+    axios.patch(PATH + "/orders/status", data)
     .then(res => {
         if(res.status === 200){
-            localStorage.setItem('id', res.data.id);           
+            localStorage.setItem('order_id', res.data.order_id);           
         }
         //this.changeMode(false)
         console.log("props value",this.props.orderDetails)

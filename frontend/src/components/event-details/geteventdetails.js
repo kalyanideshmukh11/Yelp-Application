@@ -16,7 +16,7 @@ export const GetEventDetails = (props) => {
                 <Card.Header>
                     Event Info:
                 </Card.Header>
-                <Button type="button" variant="link" className="p-0" onClick={() => props.controlModal(true, props.eventDetails[i])}>{ props.eventDetails[i].name}</Button>
+                <Button type="button" variant="link" className="p-0" href='/attendeelist'>{ props.eventDetails[i].name}</Button>
                 <Card.Text>
                 Description: {(props.eventDetails && props.eventDetails.length) ? props.eventDetails[i].description : ''}
                 </Card.Text>
@@ -46,36 +46,7 @@ export const GetEventDetails = (props) => {
             </Card.Header>
             <Card.Body>
             {content}  
-            <Modal show={props.openModal} onHide={() => props.controlModal(false)}>
-                <Modal.Header closeButton>
-                <Modal.Title>Event Attendees{props.selectedEvent && props.selectedEvent.title}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <div className="pb-2">
-                        <li style={{listStyle: 'none'}}>
-                            <p className="d-inline font-weight mr-2">Event Name: {props.selectedEvent && props.selectedEvent.name}</p><br/>
-                            <ul className="d-inline font-weight mr-2">Location: {props.selectedEvent && props.selectedEvent.location}</ul><br/>
-                            <ul className="d-inline font-weight mr-2">Date: {props.selectedEvent && props.selectedEvent.date} </ul> <br/>
-                            <ul className="d-inline font-weight mr-2">Time: {props.selectedEvent && props.selectedEvent.time}</ul><br/>
-                        </li>
-                    </div>                
-                    <p className="font-italic">Description</p>{props.selectedEvent && props.selectedEvent.description}   
-                </Modal.Body>
-                <Modal.Footer>
-                {props.success && <Alert variant='success'>
-                        Successfully Registered!
-                    </Alert>}
-                <Button variant="secondary" onClick={() => props.controlModal(false)}>
-                    Close
-                </Button>
-                <Button variant="primary" type="submit" onClick={(e) => { props.saveregisterEvent(e, props.selectedEvent)}}>
-                     Register
-                </Button>
-                </Modal.Footer>
-            </Modal>          
             </Card.Body>
-            <Card.Footer>
-            </Card.Footer>
         </Card>
     );  
 }

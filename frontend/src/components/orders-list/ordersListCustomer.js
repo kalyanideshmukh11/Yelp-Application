@@ -3,43 +3,32 @@ import { Card,Row,Dropdown, Button, Modal,Col, Form, Alert, Badge } from 'react-
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export const OrdersList = (props) => {    
+export const CustomerOrdersList = (props) => {    
     let orderDetails = props.orderDetails;
     let list
-    // if(props.ordersearchResults.length){
-    //      orderDetails = props.ordersearchResults;
-    //  }
+    if(props.ordersearchResults){
+         orderDetails = props.ordersearchResults;
+     }
     console.log(orderDetails)
     if(orderDetails){
      list = Object.keys(orderDetails).map((key,i) =>
-     <Form onSubmit = {props.submitHandler} >
+     <Card>
             <Card.Body>
              <Button type="button" variant="link" className="p-0" href="/customerpage">{orderDetails[i].customer_name}</Button>
-             <Card.Text id="orderID">
-                 Order ID: {orderDetails[key].order_id}
+             <Card.Text id="dishName">
+                 Dish: {orderDetails[i].dish_name}
              </Card.Text>
-             <Card.Text id="dish">
-                 Dish: {orderDetails[key].dish_name}
-             </Card.Text>
-             <Card.Text id="cousine">
-             Date:   {orderDetails[key].date} 
+             <Card.Text id="orderDate">
+             Date:   {orderDetails[i].date} 
             </Card.Text> 
-            <Card.Text id="location">
-            Order Status:   {orderDetails[key].order_status}
+            <Card.Text id="orderStatus">
+            Order Status:   {orderDetails[i].order_status}
             </Card.Text>
-            <Card.Text id="city">
-            Delivery Method:  {orderDetails[key].delivery_status}
-            </Card.Text> 
-            <Form.Label>Update Order Status: </Form.Label>
-                <Form.Control as="select">
-                    <option value="Preparing">Preparing</option>
-                    <option value="Delivered">Delivered</option>
-                </Form.Control>     
+            <Card.Text id="deliveryMethod">
+            Delivery Method:  {orderDetails[i].delivery_status}
+            </Card.Text>      
             </Card.Body>
-                        <Row className="mt-2">
-                        <Button variant="outline-success" align="center" type="submit">Update Order</Button>  
-                         </Row>
-        </Form>
+            </Card>
     )
     }else {
         list = (<Card.Body>

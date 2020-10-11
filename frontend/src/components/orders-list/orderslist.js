@@ -6,9 +6,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export const OrdersList = (props) => {    
     let orderDetails = props.orderDetails;
     let list
-    // if(props.ordersearchResults.length){
-    //      orderDetails = props.ordersearchResults;
-    //  }
+    console.log(props.ordersearchResults)
+    if(props.ordersearchResults){
+         orderDetails = props.ordersearchResults;
+     }
     console.log(orderDetails)
     if(orderDetails){
      list = Object.keys(orderDetails).map((key,i) =>

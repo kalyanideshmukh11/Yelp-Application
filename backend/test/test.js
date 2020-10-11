@@ -24,12 +24,11 @@ it('Positive Test Should check credentials and return status code', (done) => {
             done();
         });
 });
-it('GET restaurant list without authorization', (done) => {
+it('GET restaurant list', (done) => {
     chai.request('http://127.0.0.1:3001')
         .get('/orders/list')
         .end((err, res) => {
             expect(res).to.have.status(402);
-            //expect(res.body.total).to.greaterThan(1);
             done();
         });
 });
@@ -37,9 +36,9 @@ it('Positive Signup Test', (done) => {
     chai.request('http://127.0.0.1:3001')
         .post('/customer/customersignup')
         .send({
-            email_id: 'testcase3@test.com',
+            email_id: 'testcase7@test.com',
             password: 'test',
-            first_name: 'Test ',
+            first_name: 'Test7',
             last_name: 'User'
         })
         .end((err, res) => {
@@ -48,7 +47,7 @@ it('Positive Signup Test', (done) => {
         });
 });
 it('GET events list', (done) => {
-    chai.request('http://127.0.0.1:3001')
+    chai.request('http://127.0.0.1:3001',auth)
         .get('/events/list')
         .end((err, res) => {
             expect(res).to.have.status(200);

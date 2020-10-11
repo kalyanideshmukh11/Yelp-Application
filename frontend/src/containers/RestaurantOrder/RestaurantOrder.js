@@ -84,13 +84,15 @@ saveOrderDetails = (event) => {
     }
 //========================================
 searchOrder = (event) => {
-    //  event.preventDefault();
+      event.preventDefault();
     let orderDetails = this.props.orderDetails
+    console.log(orderDetails)
     if(this.filters.length) {
         
         this.filters.forEach(filter => {
             orderDetails = orderDetails.filter(restaurant => {
-               return orderDetails['order_status'] === filter.toString();
+                console.log(restaurant['order_status'],filter.toString())
+               return restaurant['order_status'] === filter.toString();
             })
         })
     }
@@ -131,6 +133,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         saveOrderDetails: (data) => dispatch(saveOrderDetails(data)),
+        returnOrders: (data) => dispatch(returnOrders(data)),
         changeMode: (data) => dispatch(changeMode(data)),
         enableSave: (data) => dispatch(enableSave(data)),
     }

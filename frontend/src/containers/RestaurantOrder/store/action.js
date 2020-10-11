@@ -11,5 +11,7 @@ export const changeMode = (payload) => {
 export const enableSave = (payload) => {
     return { type: actionTypes.ENABLE_SAVE, payload }
 };
-
+export const returnOrders = (payload) => {
+    return { type: actionTypes.RETURN_ORDERS, payload}
+};
 

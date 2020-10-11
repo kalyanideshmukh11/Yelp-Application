@@ -9,6 +9,7 @@ var routeChange= ()=> {
   }
 export const Restaurant = (props) => {    
     let restaurants = props.restaurants;
+    console.log(props.searchResults.length)
     if(props.searchResults.length){
          restaurants = props.searchResults;
      }

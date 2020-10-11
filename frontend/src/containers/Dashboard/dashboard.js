@@ -33,8 +33,9 @@ class Dashboard extends Component {
     }
 
     search = (event) => {
-        //  event.preventDefault();
+          event.preventDefault();
         let restaurants = this.props.restaurants.filter(restaurant => {
+            console.log(restaurant.restaurant_city,event.target.elements[1].value)
             return restaurant.restaurant_city.includes(event.target.elements[1].value)
         });
         if(this.filters.length) {

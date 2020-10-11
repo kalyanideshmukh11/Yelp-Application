@@ -11,7 +11,7 @@ import { PATH } from '../../config';
 import { RestaurantDetails } from '../../components/restaurant-details/restaurantdetails';
 import{GetMenuDetails} from '../../components/menu-details/getmenudetails';
 import{AddMenuDetails} from '../../components/menu-details/addmenudetails';
-import { RestaurantImages } from '../../components/restaurant-images/viewonly';
+import { RestaurantImages } from '../../components/restaurant-images/restaurantimages';
 import {GetReview} from '../../components/review-details/getreview';
 import { saveRestaurantDetails, changeMode, enableSave, changeImageMode, saveRestaurantImages, saveMenuDetails,
 changeMenuMode,changeReviewMode,saveReviewDetails} from './store/action';

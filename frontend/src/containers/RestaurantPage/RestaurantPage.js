@@ -1,5 +1,5 @@
 import React, { Component, useReducer } from 'react';
-import { Container, Row, Col, Button,Badge,DropdownButton,Dropdown } from 'react-bootstrap';
+import { Container, Row, Col,Form, Button,Badge,DropdownButton,Dropdown } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { PATH } from '../../config';
@@ -8,9 +8,10 @@ import{GetMenuDetails} from '../../components/menu-details/getmenudetails';
 import { RestaurantImages } from '../../components/restaurant-images/viewonly';
 import{AddReview} from '../../components/review-details/addreview';
 import{GetReview} from '../../components/review-details/getreview';
+import {PlaceOrder} from '../../components/place-order/placeorder'
 
 import { saveRestaurantDetails, changeMode, enableSave, changeImageMode, saveRestaurantImages, saveMenuDetails,
-changeMenuMode,changeReviewMode,saveReviewDetails,changeMessage} from './store/action';
+changeMenuMode,changeReviewMode,saveReviewDetails,changeMessage,savePlaceOrder} from './store/action';
 
 class RestaurantPage extends Component {
     
@@ -234,7 +235,7 @@ getReviewDetails = () => {
 
 updateReviewDetails = (value) => {
     let newDetails = {};
-    Object.assign(newDetails, this.props.menuDetails);
+    Object.assign(newDetails, this.props.reviewDetails);
     newDetails.push(value);
     this.props.saveReviewDetails(newDetails);
 }
@@ -243,12 +244,14 @@ saveReviewDetails = (event) => {
     event.preventDefault();
     console.log("res data",this.props.restaurantDetails)
     const data = {
+        "customer_name":"Abhishek Deshmukh",
         "rest_id": this.props.restaurantDetails.id,
         "comment": event.target.elements[0].value,            
         "rating": event.target.elements[1].value,  
         "date": new Date(),  
     }
     //Object.keys(data).forEach((key) => (data[key] == null) && delete data[key]);
+    console.log(data)
     axios.post(PATH + "/review/review", data)
     .then(res => {
         if(res.status === 200){
@@ -270,29 +273,33 @@ changeMessage = (val) => {
   
   savePlaceOrder = (event) => {
     event.preventDefault();
-    //console.log("res data",this.props.restaurantDetails)
+    var today = new Date(); 
+    var dd = today.getDate(); 
+    var mm = today.getMonth() + 1; 
+    var yyyy = today.getFullYear(); 
+    if (dd < 10) {   dd = '0' + dd; } 
+    if (mm < 10) {  mm = '0' + mm; } 
+    var today = dd + '/' + mm + '/' + yyyy; 
+    console.log(this.props.restaurantDetails)
     const data = {
         "rest_id": "1",
-        "rest_name": "Trident",            
-       // "customer_id": event.target.elements[1].value,  
-        "customer_name": "Kalyani Deshmukh", 
-        "order_status": "New",
-        "date":new Date(),
-        "delivery_status":"Yelp Delivery",
+        "rest_name": "Trident", 
+        "dish_name":event.target.elements[1].value,            
+        "customer_name": event.target.elements[0].value, 
+        "order_status": "New Order",
+        "date":today,
+        "delivery_status":event.target.elements[2].value,
     }
+    console.log(data)
     //Object.keys(data).forEach((key) => (data[key] == null) && delete data[key]);
     axios.post(PATH + "/orders/create", data)
     .then(res => {
         if(res.status === 200){
             localStorage.setItem('id', res.data.id);   
             this.changeMessage("Order Placed !");
+            alert('Order Placed, Successfully!');
         console.log("inside save:",this.props.message);        
-        }
-        //this.changeMode(false)
-        // this.getReviewDetails(res.data);
-        // this.changeReviewMode(false)
-        
-
+        }       
     })
     .catch(err=>{
         //this.props.authFail(err.response.data.msg);
@@ -305,19 +312,13 @@ sayHello() {
     render(){
         // if(this.props.basicDetails && this.props.education && this.props.education.length && this.props.experience && this.props.experience.length){
             return (
-                <Container>                                           
+                <Container> 
+                                                            
                     <RestaurantImages restaurantImages={this.props.restaurantImages} submitHandler={this.saveRestaurantImages} changeImageMode = {this.changeImageMode} imagemode = {this.props.imagemode}></RestaurantImages><br/>
                     <Row>                   
                     <Col sm={4} md={4} lg={4}>
-                   <DropdownButton id="dropdown-basic-button" variant='info' title="Choose Delivery Method">
-                    <Dropdown.Item href="#/action-1">Curbside Pickup</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">Yelp Delivery</Dropdown.Item>
-                    </DropdownButton>
-                    <br/>
-                    <Button href="#" variant="outline-success" onClick={this.savePlaceOrder,this.sayHello}>Place Order Now</Button><br/>
-                    <Badge variant="success">{this.props.message}</Badge> <br/>
-                    <br/>
-                    <AddReview reviewDetails={this.props.reviewDetails} submitHandler={this.saveReviewDetails}reviewmode = {this.props.reviewmode} changeReviewMode = {this.changeReviewMode}> </AddReview><br/>
+                    <PlaceOrder placeOrderDetails= {this.props.placeOrderDetails} submitHandler={this.savePlaceOrder}></PlaceOrder>
+                    <AddReview reviewDetails={this.props.reviewDetails} restaurantDetails={this.props.restaurantDetails} submitHandler={this.saveReviewDetails}reviewmode = {this.props.reviewmode} changeReviewMode = {this.changeReviewMode}> </AddReview><br/>
                     <GetReview reviewDetails={this.props.reviewDetails} reviewmode = {this.props.reviewmode}></GetReview><br/>
                     </Col>
                         <Col sm={8} md={8} lg={8}>
@@ -336,6 +337,7 @@ const mapStateToProps = (state) => {
         restaurantImages: state.restPage.restaurantImages,
         menuDetails: state.restPage.menuDetails,
         reviewDetails: state.restPage.reviewDetails,
+        placeOrderDetails: state.restPage.placeOrderDetails,
         mode: state.restPage.mode,
         save: state.restPage.save,
         imagemode: state.restPage.imagemode,
@@ -351,6 +353,7 @@ const mapDispatchToProps = (dispatch) => {
         saveMenuDetails: (data) => dispatch(saveMenuDetails(data)),
         saveReviewDetails: (data) => dispatch(saveReviewDetails(data)),
         saveRestaurantImages: (data) => dispatch(saveRestaurantImages(data)),
+        savePlaceOrder: (data) => dispatch(savePlaceOrder(data)),
         changeMode: (data) => dispatch(changeMode(data)),
         enableSave: (data) => dispatch(enableSave(data)),
         changeImageMode: (data) => dispatch(changeImageMode(data)),

@@ -34,4 +34,6 @@ export const changeReviewMode = (payload) => {
 export const changeMessage = (payload) => {
     return { type: actionTypes.CHANGE_MESSAGE, payload }
 };
-
+export const savePlaceOrder = (payload) => {
+    return { type: actionTypes.SAVE_PLACE_ORDER_DETAILS, payload }
+};

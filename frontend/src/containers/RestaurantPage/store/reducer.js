@@ -9,6 +9,7 @@ const initialState = {
     restaurantImages:null,
     menuDetails: null,
     reviewDetails:null,
+    placeOrderDetails:null,
     message :"",
     mode: false,
     save: false,
@@ -64,11 +65,18 @@ const restPageReducer = (state = initialState, action) => {
                     ...state,
                     reviewmode: action.payload
                 }
-                case actionTypes.CHANGE_MESSAGE:
+            case actionTypes.CHANGE_MESSAGE:
                     return {
                         ...state,
                         message: action.payload
                     }
+            case actionTypes.SAVE_PLACE_ORDER_DETAILS:  
+                    return {
+                        ...state,
+                        placeOrderDetails: action.payload
+                    }
+                    
+                    
         default:
             return initialState;
     }

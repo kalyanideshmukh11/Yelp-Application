@@ -5,7 +5,8 @@ const orderModel = sequelize.define('order', {
     order_id:{type: Sequelize.INTEGER,primaryKey: true,unique: true,allowNull: false,autoIncrement: true},
     order_status: {type: Sequelize.STRING, },
     delivery_status: {type: Sequelize.STRING,},
-    date: {type: Sequelize.DATE, },
+    date: {type: Sequelize.STRING, },
+    dish_name: {type: Sequelize.STRING,},
     rest_id: {
         type: Sequelize.INTEGER,
         references: {

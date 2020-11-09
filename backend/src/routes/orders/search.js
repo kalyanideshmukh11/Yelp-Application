@@ -17,7 +17,7 @@ router.get('/list', auth, async (req, res) => {
     }
 });
 //update order status
-router.patch('/status', auth, async (req, res) => {
+router.patch('/status',auth, async (req, res) => {
     try {
         const data = req.body;
 console.log(data)

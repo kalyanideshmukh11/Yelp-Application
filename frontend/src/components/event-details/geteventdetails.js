@@ -1,10 +1,22 @@
 import React from 'react';
-import { Card, Form,Row, Col,Modal,Alert, Button } from 'react-bootstrap';
-import { faEdit } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button, Card, Badge, Pagination, Row, Col, Dropdown } from 'react-bootstrap';
+import PDFViewer from 'pdf-viewer-reactjs';
 import party from '../../assets/party.jpg';
 import '../../App.css';
 export const GetEventDetails = (props) => {
+    let items = [];
+    for (let number = 1; number <= 3; number++) {
+        items.push(
+            <Pagination.Item key={number} active={number === props.currentPage}>
+                {number}
+            </Pagination.Item>
+        );
+    };
+    const paginationBasic = (
+        <div>
+            <Pagination className="float-right pt-2" onClick={ props.pageChanged }>{items}</Pagination>
+        </div>
+        );
     let content;
     if(props.eventDetails && props.eventDetails.length ){   
         console.log("from props",props.eventDetails) 
@@ -41,6 +53,7 @@ export const GetEventDetails = (props) => {
 
     }
     return (
+        <div> 
         <Card bg="light">
             <Card.Header>
             </Card.Header>
@@ -48,18 +61,10 @@ export const GetEventDetails = (props) => {
             {content}  
             </Card.Body>
         </Card>
+        {paginationBasic}
+        </div>
     );  
 }
 
 
 
-// events.sort(function(a, b) {
-//     var keyA = new Date(a.updated_at),
-//       keyB = new Date(b.updated_at);
-//     // Compare the 2 dates
-//     if (keyA < keyB) return -1;
-//     if (keyA > keyB) return 1;
-//     return 0;
-//   });
-
-//events.sort((a, b) => (a.date > b.date) ? 1 : -1)

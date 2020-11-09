@@ -3,7 +3,7 @@ import { Container, Row, Col, Alert } from 'react-bootstrap';
 import axios from 'axios';
 import { PATH } from '../../config';
 import { connect } from 'react-redux';
-import { saveEvents, returnEvents, controlModal, registerEvent,saveregisterEvent,saveAttendee } from './store/action';
+import { saveEvents, returnEvents, controlModal, registerEvent,saveregisterEvent, setSortByValue, setSortByOrder, saveAttendee } from './store/action';
 import { EventSearch } from '../../components/event-search/eventsearch';
 import { EventList } from '../../components/event/event';
 import {EventAttendee} from '../../components/event-attendee/eventattendee'
@@ -17,7 +17,14 @@ class Event extends Component {
         this.getEventAttendee();
     }
 
-    getEvents = () => {
+    getEvents = (sortValue, sortOrder) => {
+        if(sortOrder == 0) sortOrder = -1;
+        if(sortOrder == 1) sortOrder = 1;
+        sortValue = 'event_date';
+        let params = new URLSearchParams();
+        params.set('sortBy', sortValue);
+        params.set('order', sortOrder);
+
         axios.defaults.headers.common['x-auth-token'] = localStorage.getItem('token');
         axios.get(PATH  + "/events/list")
         .then(res => {
@@ -40,7 +47,15 @@ class Event extends Component {
         });
       this.props.returnEvents(eventList);
     }
+    setSortByOrder = () => {
+        this.props.setSortByOrder(!this.props.sortByOrder);
+        this.getEvents(this.props.currentPage, this.props.sortByValue, !this.props.sortByOrder, this.props.searchStr, this.props.searchVal);
+    }
 
+    setSortByValue = (e) => {
+        this.props.setSortByValue(e.target.innerText.toLowerCase());
+        this.getEvents(this.props.currentPage, e.target.innerText.toLowerCase(), this.props.sortByOrder, this.props.searchStr, this.props.searchVal);
+    }
 
     controlModal = (action, eventList) => {
         this.props.controlModal(action);
@@ -110,7 +125,7 @@ saveregisterEvent = (event,selelctedEvent) => {
             <Container className="mt-5 mb-5">
                 <h2 class="display-4">Event Search</h2><br/>
                 <div className="w-100 bg-light text-dark p-5 shadow rounded">
-                <EventSearch submitHandler={this.search}></EventSearch>
+                <EventSearch submitHandler={this.search}setSortByValue = { this.setSortByValue } setSortByOrder = { this.setSortByOrder }></EventSearch>
                 </div>
                 <div className="w-100 bg-light text-dark mt-5 p-5 shadow rounded">
                 <EventList eventList = { this.props.eventList } searchResults = { this.props.searchResults } selectedEvent = {this.selectedEvent} registerEvent={this.registerEvent} saveregisterEvent={this.saveregisterEvent} controlModal = {this.controlModal} openModal = {this.props.openModal} success = {this.props.success} eventsRegistered = {this.eventsRegistered}></EventList>   
@@ -129,7 +144,9 @@ const mapStateToProps = (state) => {
         eventattendee: state.eventSearch.eventattendee,
         searchResults: state.eventSearch.searchResults,
         openModal: state.eventSearch.openModal,
-        success: state.eventSearch.success
+        success: state.eventSearch.success,
+        sortByValue: state.eventSearch.sortByValue,
+        sortByOrder: state.eventSearch.sortByOrder
     };
 }
 
@@ -140,6 +157,8 @@ const mapDispatchToProps = (dispatch) => {
         controlModal: (data) => dispatch(controlModal(data)),
         registerEvent: (data) => dispatch(registerEvent(data)),
         saveAttendee: (data) => dispatch(saveAttendee(data)),
+        setSortByValue: (data) => dispatch(setSortByValue(data)),
+        setSortByOrder: (data) => dispatch(setSortByOrder(data)),
         
     }
 }

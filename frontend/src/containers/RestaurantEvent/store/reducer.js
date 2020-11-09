@@ -7,6 +7,7 @@ const initialState = {
     eventmode: false,
     save: false,
     openModal: false,
+    currentPage: 1
 }
 const eventReducer = (state = initialState, action) => {
     switch(action.type){
@@ -30,6 +31,11 @@ const eventReducer = (state = initialState, action) => {
                     ...state,
                     openModal: action.payload,                
                 }
+        case actionTypes.SET_CURRENT_RESTAURANT_EVENT_PAGE:
+            return {
+                     ...state,
+                     currentPage: action.payload,                
+                    }
         default:
             return initialState;
     }

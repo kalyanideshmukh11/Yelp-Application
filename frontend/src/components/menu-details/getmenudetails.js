@@ -1,9 +1,22 @@
 import React from 'react';
-import { Card, Form,Row, Col, Button } from 'react-bootstrap';
+import { Card, Pagination,Form,Row, Col, Button } from 'react-bootstrap';
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const GetMenuDetails = (props) => {
+    let items = [];
+    for (let number = 1; number <= 3; number++) {
+        items.push(
+            <Pagination.Item key={number} active={number === props.currentPage}>
+                {number}
+            </Pagination.Item>
+        );
+    };
+    const paginationBasic = (
+        <div>
+            <Pagination className="float-right pt-2" onClick={ props.pageChanged }>{items}</Pagination>
+        </div>
+        );
     let content;
     // console.log(props.menuDetails)
     if(props.menuDetails && props.menuDetails.length ){   
@@ -39,6 +52,7 @@ export const GetMenuDetails = (props) => {
 
     }
     return (
+        <div>
         <Card border="danger" bg="light">
             <Card.Title align="center">  Menu List </Card.Title>
             <Card.Body>
@@ -47,6 +61,8 @@ export const GetMenuDetails = (props) => {
             <Card.Footer>
             </Card.Footer>
         </Card>
+         {paginationBasic}
+         </div>
     );  
 }
 

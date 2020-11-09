@@ -1,20 +1,29 @@
 import React from 'react';
-import { Card, Button, Modal, Form, Alert, Badge } from 'react-bootstrap';
-import{GetMenuDetails} from '../../components/menu-details/getmenudetails';
-//import { createBrowserHistory as history} from 'history';
-import { useHistory } from 'react-router-dom';
-var routeChange= ()=> {
-    let path = `/restaurantpage`;
-    this.props.history.push(path);
-  }
-export const Restaurant = (props) => {    
+import { Card, Button, Modal,Pagination ,Alert } from 'react-bootstrap';
+
+
+
+export const Restaurant = (props) => {   
+    let items = [];
+    for (let number = 1; number <= 3; number++) {
+        items.push(
+            <Pagination.Item key={number} active={number === props.currentPage}>
+                {number}
+            </Pagination.Item>
+        );
+    };
+    const paginationBasic = (
+        <div>
+            <Pagination className="float-right pt-2" onClick={ props.pageChanged }>{items}</Pagination>
+        </div>
+        );  
+
     let restaurants = props.restaurants;
     console.log(props.searchResults.length)
     if(props.searchResults.length){
          restaurants = props.searchResults;
      }
    
-     const history = useHistory()
     const list = Object.keys(restaurants).map(key =>
         <Card bg="light" className = "mt-2">
             <Card.Body>
@@ -71,6 +80,8 @@ export const Restaurant = (props) => {
                 </Button>
                 </Modal.Footer>
             </Modal>
+            {paginationBasic}
+        
         </div>
     );  
 }

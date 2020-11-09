@@ -12,3 +12,6 @@ export const enableSave = (payload) => {
     return { type: actionTypes.ENABLE_SAVE, payload }
 };
 
+export const setCurrentRestaurantEventPage = (payload) => {
+    return { type: actionTypes.SET_CURRENT_RESTAURANT_EVENT_PAGE, payload }
+};

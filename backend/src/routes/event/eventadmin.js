@@ -7,6 +7,8 @@ const EventAttendee= require('../../models/eventattendee');
 
 router.get('/eventdetails', auth, async (req, res) => {
     try {
+        
+        
          eventDetails = await Event.findAll({
             where: {
                 rest_id: req.user.id,

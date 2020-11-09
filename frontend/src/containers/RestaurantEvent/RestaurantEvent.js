@@ -9,7 +9,8 @@ import axios from 'axios';
 import { PATH } from '../../config';
 import { AddEventDetails } from '../../components/event-details/addeventdetails';
 import { GetEventDetails } from '../../components/event-details/geteventdetails';
-import { saveEventDetails, changeEventMode, enableSave } from './store/action';
+import { saveEventDetails, changeEventMode, enableSave, setCurrentRestaurantEventPage } from './store/action';
+
 
 
 
@@ -23,10 +24,10 @@ class RestaurantEvent extends Component {
        this.getEventDetails();
     }
 // ---------------------------------------------------------
-getEventDetails = () => {
+getEventDetails = (page) => {
     console.log("get of events")
     axios.defaults.headers.common['x-auth-token'] = localStorage.getItem('token');
-    axios.get(PATH  + "/events/eventdetails")
+    axios.get(PATH  + "/events/eventdetails?page="+ page)
     .then(res => {
         if(res.status === 200){  
             console.log("got the events")
@@ -38,7 +39,10 @@ getEventDetails = () => {
         //this.props.setError(err.response.data);
     })
 }
-
+pageChanged = (e) => {
+    this.props.setCurrentRestaurantEventPage(Number(e.target.text));
+    this.getEventDetails(e.target.text);
+};
 updateEventDetails = (value) => {
     let newDetails = {};
     Object.assign(newDetails, this.props.eventDetails);
@@ -96,7 +100,7 @@ changeEventMode = (mode) => {
                     <Row>
                         <Col sm={8} md={8} lg={8}>
                         <AddEventDetails eventDetails={this.props.eventDetails} submitHandler={this.saveEventDetails} changeEventMode = {this.changeEventMode} eventmode = {this.props.eventmode}></AddEventDetails><br/>
-                        <GetEventDetails eventDetails={this.props.eventDetails} eventmode = {this.props.eventmode} selectedEvent={this.selectedEvent}controlModal = {this.controlModal} openModal = {this.props.openModal}></GetEventDetails><br/>
+                        <GetEventDetails eventDetails={this.props.eventDetails} eventmode = {this.props.eventmode} selectedEvent={this.selectedEvent} currentPage = { this.props.currentPage } pageChanged = { this.pageChanged } controlModal = {this.controlModal} openModal = {this.props.openModal}></GetEventDetails><br/>
                         </Col>
                     </Row>
                 </Container>            
@@ -110,6 +114,7 @@ const mapStateToProps = (state) => {
         eventmode: state.event.eventmode,
         save: state.event.save,
         openModal: state.event.openModal,
+        currentPage: state.event.currentPage,
         
     };
 }
@@ -119,7 +124,11 @@ const mapDispatchToProps = (dispatch) => {
         saveEventDetails: (data) => dispatch(saveEventDetails(data)),
         changeEventMode: (data) => dispatch(changeEventMode(data)),
         enableSave: (data) => dispatch(enableSave(data)),
+        setCurrentRestaurantEventPage: (data) => dispatch(  (data)),
     }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(RestaurantEvent);
+
+//==================================================================================
+

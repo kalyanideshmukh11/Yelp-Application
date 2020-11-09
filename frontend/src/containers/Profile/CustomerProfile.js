@@ -1,4 +1,4 @@
-import React, { Component, useReducer } from 'react';
+import React, { Component} from 'react';
 import { AboutMe } from '../../components/about-me/aboutme';
 import { BasicDetails } from '../../components/basic-details/basicdetails';
 import { ProfilePic } from '../../components/profile-pic/profilepic';
@@ -76,7 +76,7 @@ saveBasicDetails = (event) => {
         axios.defaults.headers.common['x-auth-token'] = localStorage.getItem('token');
         axios.get(PATH + "/customerprofile/aboutme")
         .then(res => {
-            if(res.status == 200){
+            if(res.status === 200){
                     saveAboutMeInfo(res.data)
                     this.props.saveAboutMeInfo(res.data);  
             }
@@ -145,7 +145,7 @@ getProfilePic = () => {
 
     axios.get(PATH + "/customerphoto/profilepic")
     .then(res => {
-        if(res.status == 200){
+        if(res.status === 200){
             if(res.data){
                 console.log("data received",res.data[0].photo)
 

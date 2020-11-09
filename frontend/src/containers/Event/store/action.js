@@ -23,4 +23,11 @@ export const saveAttendee = (payload) => {
     return { type: actionTypes.SAVE_ATTENDEE, payload } 
     
 };
+export const setSortByValue = (payload) => {
+    return { type: actionTypes.SET_SORT_BY_VALUE, payload }
+};
+
+export const setSortByOrder = (payload) => {
+    return { type: actionTypes.SET_SORT_BY_ORDER, payload }
+};
 

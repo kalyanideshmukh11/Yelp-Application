@@ -1,9 +1,22 @@
 import React from 'react';
-import { Card,Row,Dropdown, Button, Modal,Col, Form, Alert, Badge } from 'react-bootstrap';
+import { Card,Row,Dropdown, Pagination, Button, Modal,Col, Form, Alert, Badge } from 'react-bootstrap';
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export const OrdersList = (props) => {    
+export const OrdersList = (props) => {  
+    let items = [];
+    for (let number = 1; number <= 3; number++) {
+        items.push(
+            <Pagination.Item key={number} active={number === props.currentPage}>
+                {number}
+            </Pagination.Item>
+        );
+    };
+    const paginationBasic = (
+        <div>
+            <Pagination className="float-right pt-2" onClick={ props.pageChanged }>{items}</Pagination>
+        </div>
+        );  
     let orderDetails = props.orderDetails;
     let list
     console.log(props.ordersearchResults)
@@ -50,6 +63,7 @@ export const OrdersList = (props) => {
         </Card.Body>)
     }
     return (
+        <div>
             <Card bg="light">
             <Card.Body>
             <Card.Title>Order Details</Card.Title>
@@ -58,6 +72,8 @@ export const OrdersList = (props) => {
             <Card.Footer>
             </Card.Footer>
         </Card>
+        {paginationBasic}
+        </div>
     );  
 }
 

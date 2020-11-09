@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { addEmail, addPassword, authSuccess, authFail} from './store/action';
 import { PATH } from '../../config';
 import { Link } from 'react-router-dom';
-import cookie from 'react-cookies';
+
 
 class RestaurantLogin extends Component {
     submitHandler = async (event) => {

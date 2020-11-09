@@ -7,7 +7,7 @@ import React, { Component, useReducer } from 'react';
 import { AboutMe } from '../../components/about-me/viewonly';
 import { BasicDetails } from '../../components/basic-details/viewonly';
 import { ProfilePic } from '../../components/profile-pic/viewonly';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { PATH } from '../../config';
@@ -194,6 +194,7 @@ getProfilePic = () => {
                     <Row>
                     <Col sm={4} md={4} lg={4}>
                         <ProfilePic profilePic={this.props.profile_pic} submitHandler={this.addProfilePic} mode = {this.props.mode} modeHandler = {this.changeMode}></ProfilePic><br/>
+                        <Button type="button"  bsStyle="danger" className="pull-right" href="http://54.183.61.112:4000/chat.html?username=cheesecake+Factory&room=customer">Message</Button>
                     </Col>
                         <Col sm={8} md={8} lg={8}>
                         <BasicDetails basicDetails={this.props.basicDetails} submitHandler={this.saveBasicDetails} changeBasicDetailMode = {this.changeBasicDetailMode} bdmode = {this.props.bdmode}></BasicDetails><br/>

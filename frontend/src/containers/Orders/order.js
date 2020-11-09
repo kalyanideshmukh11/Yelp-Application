@@ -80,7 +80,7 @@ saveOrderDetails = (event) => {
     }
 //========================================
 searchOrder = (event) => {
-    //  event.preventDefault();
+      event.preventDefault();
     let orderDetails = this.props.orderDetails
     if(this.filters.length) {
         this.filters.forEach(filter => {
@@ -128,6 +128,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         saveOrderDetails: (data) => dispatch(saveOrderDetails(data)),
+        returnOrders: (data) => dispatch(returnOrders(data)),
         changeMode: (data) => dispatch(changeMode(data)),
         enableSave: (data) => dispatch(enableSave(data)),
     }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
- import Navigation from './components/Navbar/Navbar';
+import Navigation from './components/Navbar/Navbar';
 import Dashboard from './containers/Dashboard/dashboard';
 import Signup from './components/Signup/Signup';
 import CustomerSignup from './components/Signup/CustomerSignup';

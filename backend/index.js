@@ -3,11 +3,14 @@ const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
+
 require('dotenv').config();
 
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
-//app.use(cors({ origin: 'http://54.151.2.194:3000', credentials: true }));
+const port = process.env.PORT || 4000
+//app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+app.use(cors({ origin: 'http:// 54.183.61.112:3000', credentials: true }));
 app.use(express.static('uploads'));
+
 
 const loginHandler = require('./src/routes/customer/customerLogin');
 const eventHandler = require('./src/routes/event/eventadmin');
@@ -37,3 +40,4 @@ app.use('/images',restaurantImages);
 app.listen('3001', () => {
     console.log('Yelp backend running on port 3001');
 });
+

@@ -11,7 +11,8 @@ module.exports = Object.freeze({
     DATABASE:'yelp', 
     USER :'admin',
     PASSWORD:'Cognizant1!',
-    HOST : 'database-1.cavkgty9kr1s.us-west-1.rds.amazonaws.com',
+    HOST : 'yelp.cavkgty9kr1s.us-west-1.rds.amazonaws.com',
     JWT_KEY : 'YelpSecreteKey@123'
 })
 
+ 

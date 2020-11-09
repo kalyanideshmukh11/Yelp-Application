@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button, Card, Badge, Pagination, Row, Col, Dropdown } from 'react-bootstrap';
-import PDFViewer from 'pdf-viewer-reactjs';
 import party from '../../assets/party.jpg';
 import '../../App.css';
 export const GetEventDetails = (props) => {

@@ -18,7 +18,6 @@
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.20.1",
     "mdbreact": "^4.27.0",
-    "pdf-viewer-reactjs": "^2.1.2",
     "react": "^16.12.0",
     "react-bootstrap": "^1.0.0-beta.16",
     "react-cookies": "^0.1.1",

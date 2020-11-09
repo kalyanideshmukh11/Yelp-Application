@@ -27,7 +27,7 @@ class Navigation extends Component {
                     {localStorage.getItem('token') && cookie.load('persona')==='restaurant' && <Nav.Link href="/restaurantorder">Orders</Nav.Link>}
                     {localStorage.getItem('token') && cookie.load('persona')==='restaurant' &&<Nav.Link href="/restaurantevent">Events</Nav.Link>}
                     {localStorage.getItem('token') && cookie.load('persona')==='customer' &&<Nav.Link href="/event">Users</Nav.Link>}
-                    {localStorage.getItem('token') && cookie.load('persona')==='customer' &&<Nav.Link href="http://localhost:4000/chat.html?username=Darth&room=customer">Messages</Nav.Link>}
+                    {localStorage.getItem('token') && cookie.load('persona')==='customer' &&<Nav.Link href="http://54.183.61.112:4000/chat.html?username=Darth&room=customer">Messages</Nav.Link>}
                 </Nav>
                 {!localStorage.getItem('token') && <Link to='/login'>Sign In</Link>}
                 {!localStorage.getItem('token') && <Link className="pl-5" to='/signup'>Sign Up</Link>}  

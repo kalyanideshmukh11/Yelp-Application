@@ -15,7 +15,7 @@ class RestaurantLogin extends Component {
             password: this.props.password
         }
         axios.defaults.withCredentials = true;
-
+        console.log(PATH + "/restaurant/login")
         axios.post(PATH + "/restaurant/login", data)
         .then(res => {
             if(res.status === 200){
@@ -24,7 +24,7 @@ class RestaurantLogin extends Component {
             }
         })
         .catch(err=>{
-            this.props.authFail(err.response.data.msg);
+            //this.props.authFail(err.response.data.msg);
         })
     }
 
